@@ -1,5 +1,5 @@
 // PainPath service worker: lưu sẵn để mở offline. Tăng VERSION mỗi lần cập nhật index.html.
-const VERSION = "painpath-v8";
+const VERSION = "painpath-v9";
 const FILES = ["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./apple-touch-icon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
