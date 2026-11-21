@@ -130,7 +130,7 @@ const SIJ = [
   ["Hormone nào làm SIJ lỏng trong thai kỳ?",["Estrogen","Relaxin","Insulin","Cortisol"],1,"Relaxin làm khớp linh động và khung chậu rộng ra.","SIJ"]
  ]},
 
-{ id:3, t:"Chương 3 · Đánh giá chẩn đoán bệnh khớp cùng–chậu", yt:"", min:18,
+{ id:3, t:"Chương 3 · Đánh giá chẩn đoán bệnh khớp cùng–chậu", yt:["https://youtu.be/gQSU1yQTxjI"], min:18,
  pts:[
   "Triệu chứng SIJ giống bệnh cột sống thắt lưng → cần phối hợp: bệnh sử, khám, hình ảnh, xét nghiệm, phong bế chẩn đoán.",
   "Khởi phát (bệnh nhân đáp ứng tiêm SIJ): 44% chấn thương, 21% chấn thương tích lũy, 35% âm thầm.",
