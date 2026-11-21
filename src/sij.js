@@ -60,7 +60,7 @@ const SIJ = [
   ["Biến thể giải phẫu SIJ hay gặp nhất, tỷ lệ?",["Khớp phụ, 19,1%","Cùng hóa L5, 2%","Thiếu khớp, 0,1%","Khớp đôi, 50%"],0,"Khớp phụ 19,1% trong 534 CT; hay gặp hơn ở béo phì, lớn tuổi, nam.","SIJ"]
  ]},
 
-{ id:2, t:"Chương 2 · Các bệnh lý của khớp cùng–chậu", yt:"", min:15,
+{ id:2, t:"Chương 2 · Các bệnh lý của khớp cùng–chậu", yt:["https://youtu.be/RX32AZ6dq4E"], min:15,
  pts:[
   "Đau SIJ chia 2 nhóm: TRONG khớp (nhiễm trùng, thoái hóa, viêm cột sống thể trục, u) và NGOÀI khớp (dây chằng, điểm bám gân, gãy xương, đau cơ–cân, thai kỳ).",
   "Thoái hóa: nguyên nhân đứng thứ 3 của đau thắt lưng mạn, 13–18,5% bệnh nhân. Sụn xương chậu hỏng trước (lực trượt), sụn xương cùng dày gấp 2–3 lần, giữ lâu.",
