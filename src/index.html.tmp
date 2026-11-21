@@ -13,6 +13,7 @@
   --t-card:#007965; --t-card-soft:#e7f9f3;
   --t-quiz:#b45309; --t-quiz-soft:#fff4e5;
   --t-book:#6729ae; --t-book-soft:#f7f3fc;
+  --t-sij:#c0267a; --t-sij-soft:#fdecf5;
   --m:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -22,7 +23,7 @@
   --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); --on-accent:#0e1116;
   --t-home:#02c5f5; --t-home-soft:#163945; --t-road:#baabff; --t-road-soft:#363247;
   --t-card:#06cdac; --t-card-soft:#1b3a32; --t-quiz:#f6ad55; --t-quiz-soft:#3d2a12;
-  --t-book:#c99cfc; --t-book-soft:#322145; color-scheme:dark}}
+  --t-book:#c99cfc; --t-book-soft:#322145; --t-sij:#f472b6; --t-sij-soft:#3d1b2f; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0e1116; --card:#161b22; --ink:#e8edf3; --muted:#9bacbe; --line:#252c36;
   --accent:#4ea8f0; --accent-soft:#12293c; --warn:#e5a05a; --warn-soft:#2e2313;
@@ -30,7 +31,7 @@
   --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); --on-accent:#0e1116;
   --t-home:#02c5f5; --t-home-soft:#163945; --t-road:#baabff; --t-road-soft:#363247;
   --t-card:#06cdac; --t-card-soft:#1b3a32; --t-quiz:#f6ad55; --t-quiz-soft:#3d2a12;
-  --t-book:#c99cfc; --t-book-soft:#322145; color-scheme:dark}
+  --t-book:#c99cfc; --t-book-soft:#322145; --t-sij:#f472b6; --t-sij-soft:#3d1b2f; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--card)}
@@ -134,10 +135,14 @@ footer{padding:4px 0 30px;font-size:11.5px;color:var(--muted);text-align:center;
 .case details{margin-top:6px}.case summary{cursor:pointer;font-weight:700;color:var(--accent)}
 .steps{display:grid;gap:8px}.steps div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
 .lnav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grp{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 0 10px}
+.grp button{min-height:48px;border:2px solid var(--tc);background:var(--bg);color:var(--tc);border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;padding:6px 8px}
+.grp button[aria-pressed="true"]{background:var(--tc);color:var(--on-accent)}
 </style>
 
 <header class="top"><div class="wrap">
   <div class="brand"><h1>PainPath</h1><span>Học điều trị đau mạn tính</span></div>
+  <div class="grp" id="grp"></div>
   <div class="derived" id="derived"></div>
   <nav class="tabs" id="nav" role="tablist"></nav>
 </div></header>
@@ -204,12 +209,15 @@ function chips(ks){return ks.length?`<div class="chips">${ks.map(k=>`<button cla
 const wl=w=>"Tuần "+w;
 const TABS=[["home","Hôm nay"],["road","Lộ trình"],["card","Thẻ ôn"],["quiz","Kiểm tra"],["book","Nguồn"]];
 let tab="home", sub={road:0,card:1,quiz:1,book:"all"};
-const tabFromHash=()=>{const h=location.hash.slice(1);return TABS.some(t=>t[0]===h)?h:"home";};
+const tabFromHash=()=>{const h=location.hash.slice(1);return h==="sij"||TABS.some(t=>t[0]===h)?h:"sij";};
 
 function streakCount(){const t=todayIdx();let s=0;for(let i=Math.min(t,TOT()-1);i>=0;i--){const w=Math.floor(i/7),d=i%7;if(done[`${w}-${d}`])s++;else if(i<t)break;}return s;}
 function renderHead(){
   const t=todayIdx(), n=nDone();
   const wk = t<0?"Chưa bắt đầu":t>=TOT()?"Đã hết lộ trình":`Tuần ${Math.floor(t/7)+1} · ${DOW[t%7]}`;
+  const lt=tab!=="sij";
+  document.getElementById("grp").innerHTML=`<button data-grp="lt" aria-pressed="${lt}" style="--tc:var(--t-home)">📚 Lý thuyết đau mạn</button><button data-grp="sij" aria-pressed="${!lt}" style="--tc:var(--t-sij)">🦴 Đau khớp cùng chậu</button>`;
+  document.getElementById("derived").style.display=lt?"":"none"; document.getElementById("nav").style.display=lt?"":"none";
   document.getElementById("derived").innerHTML=`<span class="chip">${wk}</span><span class="chip g">Đã học ${n}/${TOT()}</span><span class="chip w">Chuỗi ${streakCount()} ngày</span>`;
   document.getElementById("nav").innerHTML=TABS.map(([k,l])=>`<button role="tab" data-tab="${k}" style="--tc:var(--t-${k})" aria-selected="${k===tab}">${l}</button>`).join("");
   const mw=document.getElementById("mainwrap"); const tk=tab==="lesson"?"road":tab; mw.style.setProperty("--accent",`var(--t-${tk})`); mw.style.setProperty("--accent-soft",`var(--t-${tk}-soft)`);
@@ -219,6 +227,7 @@ function weekChips(kind){const ws=Object.keys(kind==="card"?CARDS:QUIZ).map(Numb
 
 function render(){
   renderHead(); const m=document.getElementById("main");
+  if(tab==="sij"){setSub(sijChips(),true);m.innerHTML=sijView();return;}
   if(tab==="lesson"){setSub("");m.innerHTML=lessonView();return;}
   if(tab==="home"){setSub("");m.innerHTML=homeView();}
   if(tab==="road"){setSub(["Tất cả"].concat(PHASES.map((p,i)=>"GĐ "+(i+1))).map((l,i)=>`<button data-sub="${i}" class="${sub.road===i?"on":""}">${l}</button>`).join(""));m.innerHTML=roadView();}
@@ -307,9 +316,11 @@ function lessonView(){
   <div class="lnav"><button class="btn" ${prev?`data-lesson="${prev}"`:"disabled"}>‹ Bài trước</button><button class="btn" ${next?`data-lesson="${next}"`:"disabled"}>Bài sau ›</button></div>
   <button class="btn block" data-back="1" style="margin-top:10px">Quay lại</button>`;
 }
-function go(t){tab=t; if(location.hash.slice(1)!==t) history.replaceState(null,"","#"+t); render(); window.scrollTo(0,0);}
+let lastLt="home";
+function go(t){tab=t; if(t!=="sij") lastLt=t; if(location.hash.slice(1)!==t) history.replaceState(null,"","#"+t); render(); window.scrollTo(0,0);}
 document.addEventListener("click",e=>{
   const b=e.target.closest("button,[data-act]"); if(!b) return;
+  if(b.dataset.grp) return go(b.dataset.grp==="sij"?"sij":lastLt);
   if(b.dataset.tab) return go(b.dataset.tab);
   if(b.dataset.lesson){if(tab!=="lesson")lessonFrom=tab;lessonId=b.dataset.lesson;tab="lesson";render();window.scrollTo(0,0);return;}
   if(b.dataset.back){go(lessonFrom);return;}
@@ -333,6 +344,7 @@ document.addEventListener("change",e=>{
   if(e.target.id==="startdate"&&e.target.value){start=e.target.value;LS.set("pp-start",start);render();}
   if(e.target.id==="onlynew"){onlyNew=e.target.checked;ci=0;flipped=false;render();}
 });
+/*SIJ*/
 window.addEventListener("hashchange",()=>{tab=tabFromHash();render();});
 tab=tabFromHash(); render();
 </script>

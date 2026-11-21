@@ -30,6 +30,8 @@ if 'CARDS[1] = [' not in t:
     t = t.replace('/*LESSONS*/', rd('w1.js') + '\n/*LESSONS*/', 1)
 t = t.replace('/*LESSONS*/', rd('lessons.js') + '\n' + rd('week2.js'), 1)
 
+t = t.replace('/*SIJ*/', rd('sij.js'), 1)
+
 # 3) Kiểm tra cú pháp JS nếu có Node
 m = re.search(r'<script>(.*)</script>', t, re.S)
 if m and shutil.which('node'):
