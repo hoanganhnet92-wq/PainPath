@@ -4,7 +4,7 @@
 Object.assign(SRC,{SIJ:{lvl:"tb",t:"Sacroiliac Joint Pain: A Comprehensive Guide to Surgical and Interventional Procedures",n:"Abd-Elsayed A, Sayed D (eds). Oxford University Press, 2022. Các bài giảng trong mục Đau khớp cùng chậu soạn từ sách này.",doi:"10.1093/med/9780197607947.001.0001"}});
 
 const SIJ = [
-{ id:1, t:"Chương 1 · Giải phẫu khớp cùng–chậu", yt:"", min:7,
+{ id:1, t:"Chương 1 · Giải phẫu khớp cùng–chậu", yt:["https://youtu.be/iveddMRsf-k","https://youtu.be/G-dcaFR42Bw","https://youtu.be/l_dq2bqY9pM"], min:7,
  pts:[
   "Khớp cùng–chậu (SIJ): khớp đa mặt phẳng ở phía sau khung chậu, truyền tải trọng từ thân mình xuống chi dưới; nhiều dây chằng, giàu mạch máu, chi phối thần kinh dày.",
   "Là chỗ tiếp khớp giữa xương cùng và xương chậu cùng bên (2 khớp). Trên: cánh xương cùng. Dưới: xương cụt, khớp cùng–cụt. Ngoài–dưới: khuyết ngồi lớn và cơ hình lê.",
@@ -217,9 +217,9 @@ sijReset();
 function sijChips(){return SIJ.map((c,i)=>`<button data-sijch="${i}" class="${sijCh===i?"on":""}">Chương ${c.id}</button>`).join("");}
 
 function sijVideo(c){
-  return c.yt
-   ? `<a class="btn pri block" href="${esc(c.yt)}" target="_blank" rel="noopener">▶ Xem video bài giảng trên YouTube (khoảng ${c.min} phút)</a>`
-   : `<div class="note"><b>Link video sẽ được thêm sau.</b> Bài giảng dài khoảng ${c.min} phút.</div>`;
+  const L=Array.isArray(c.yt)?c.yt:(c.yt?[c.yt]:[]);
+  if(!L.length) return `<div class="note"><b>Link video sẽ được thêm sau.</b> Bài giảng dài khoảng ${c.min} phút.</div>`;
+  return L.map((u,i)=>`<a class="btn pri block" style="margin-bottom:8px" href="${esc(u)}" target="_blank" rel="noopener">▶ ${L.length>1?"Video "+(i+1)+"/"+L.length:"Xem video bài giảng"} trên YouTube</a>`).join("");
 }
 
 function sijView(){
