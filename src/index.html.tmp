@@ -1,0 +1,338 @@
+<title>PainPath</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout theo AnesDose: header trắng dính trên cùng (brand + chip thông tin + hàng tab pill màu nhận diện), nội dung là các thẻ có dải tiêu đề màu của tab */
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --ink:#12161c; --muted:#5d6b7a; --line:#e3e8ee;
+  --accent:#0f6fb8; --accent-soft:#e7f1f9; --warn:#b4530a; --warn-soft:#fdf1e3;
+  --danger:#b3261e; --danger-soft:#fdecea; --ok:#1a7f57; --ok-soft:#e7f4ee;
+  --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.05);
+  --tap:44px; --on-accent:#ffffff;
+  --t-home:#067491; --t-home-soft:#e8f8ff;
+  --t-road:#5d59d8; --t-road-soft:#f6f3ff;
+  --t-card:#007965; --t-card-soft:#e7f9f3;
+  --t-quiz:#b45309; --t-quiz-soft:#fff4e5;
+  --t-book:#6729ae; --t-book-soft:#f7f3fc;
+  --m:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1116; --card:#161b22; --ink:#e8edf3; --muted:#9bacbe; --line:#252c36;
+  --accent:#4ea8f0; --accent-soft:#12293c; --warn:#e5a05a; --warn-soft:#2e2313;
+  --danger:#ff8a80; --danger-soft:#33191a; --ok:#5fd0a0; --ok-soft:#12291f;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); --on-accent:#0e1116;
+  --t-home:#02c5f5; --t-home-soft:#163945; --t-road:#baabff; --t-road-soft:#363247;
+  --t-card:#06cdac; --t-card-soft:#1b3a32; --t-quiz:#f6ad55; --t-quiz-soft:#3d2a12;
+  --t-book:#c99cfc; --t-book-soft:#322145; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1116; --card:#161b22; --ink:#e8edf3; --muted:#9bacbe; --line:#252c36;
+  --accent:#4ea8f0; --accent-soft:#12293c; --warn:#e5a05a; --warn-soft:#2e2313;
+  --danger:#ff8a80; --danger-soft:#33191a; --ok:#5fd0a0; --ok-soft:#12291f;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); --on-accent:#0e1116;
+  --t-home:#02c5f5; --t-home-soft:#163945; --t-road:#baabff; --t-road-soft:#363247;
+  --t-card:#06cdac; --t-card-soft:#1b3a32; --t-quiz:#f6ad55; --t-quiz-soft:#3d2a12;
+  --t-book:#c99cfc; --t-book-soft:#322145; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--card)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.brand{display:flex;align-items:baseline;gap:10px;padding:12px 0 8px}
+.brand h1{font-size:17px;margin:0;letter-spacing:-.2px}
+.brand span{font-size:12px;color:var(--muted)}
+.derived{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 10px}
+.chip{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 11px;font-weight:650;font-size:12.5px;font-variant-numeric:tabular-nums;border:0}
+.chip.g{background:var(--ok-soft);color:var(--ok)}
+.chip.w{background:var(--warn-soft);color:var(--warn)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{flex:0 0 auto;min-height:var(--tap);border:1.5px solid var(--tc,var(--line));background:var(--bg);color:var(--tc,var(--muted));padding:9px 16px;border-radius:999px;font-size:14.5px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:background .12s}
+nav.tabs button[aria-selected="true"]{background:var(--tc);border-color:var(--tc);color:var(--on-accent)}
+main{padding-block:14px 40px}
+.grpbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.grpbar:empty{display:none}
+.grpbar button{flex:1 1 auto;min-height:40px;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:7px 10px;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.grpbar button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.grpbar button:disabled{opacity:.4;cursor:default}
+.grpbar.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.grpbar.scroll button{flex:0 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.card>h2{margin:0;padding:12px 14px 12px 12px;font-size:13.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--accent);font-weight:800;border-bottom:1px solid var(--line);border-left:4px solid var(--accent);background:var(--accent-soft)}
+.body{padding:12px 14px;display:grid;gap:10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 14px;border-bottom:1px solid var(--line);align-items:center}
+.row:last-child{border-bottom:none}
+.row .nm{font-weight:650}
+.row .sub{grid-column:1;font-size:12px;color:var(--muted);line-height:1.4}
+.row .val{grid-column:2;grid-row:1/3;align-self:start;text-align:right;font-variant-numeric:tabular-nums;font-weight:750;font-size:19px;color:var(--accent);white-space:nowrap}
+.row .val small{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}
+.row.ok .val{color:var(--ok)}
+.note{padding:10px 14px;font-size:12.5px;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)}
+.muted{color:var(--muted)}.small{font-size:13px}
+.flexr{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{min-height:var(--tap);border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:14px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.block{width:100%}
+.bar{height:8px;border-radius:4px;background:var(--accent-soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.title{font-size:17px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chips .chip{font-family:var(--m);font-size:11px;padding:2px 8px;cursor:pointer}
+.tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.tag.done{background:var(--ok-soft);color:var(--ok)}.tag.rev{background:var(--warn-soft);color:var(--warn)}
+details.wk{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden}
+details.wk>summary{list-style:none;cursor:pointer;padding:11px 14px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px}
+details.wk>summary::-webkit-details-marker{display:none}
+details.wk[open]>summary{border-bottom:1px solid var(--line)}
+.pill{flex:0 0 auto;background:var(--accent);color:var(--on-accent);border-radius:7px;padding:2px 8px;font-size:12px;font-variant-numeric:tabular-nums}
+.wt{min-width:0;flex:1}.wt small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+.wc{font-size:12px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wc.full{color:var(--ok)}
+.goal{margin:0;padding:10px 14px;font-size:12.5px;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--line)}
+.days{list-style:none;margin:0;padding:0}
+.days li{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.days li:last-child{border-bottom:0}
+.days input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent)}
+.days .d{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.days b{display:block;font-weight:650}
+.days li.on b{text-decoration:line-through;text-decoration-color:var(--muted);color:var(--muted)}
+.flip{perspective:1000px;cursor:pointer;margin-bottom:14px}
+.flip .in{position:relative;min-height:240px;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:auto;border-left:4px solid var(--accent)}
+.face.back{transform:rotateY(180deg);background:var(--accent-soft)}
+.face .q{font-size:17px;font-weight:700}
+.face .s{font-size:12px;color:var(--muted)}
+.lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.cardnav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn.bad{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+.btn.good{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.opt{display:block;width:100%;text-align:left;min-height:var(--tap);border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:10px 12px;cursor:pointer;font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.opt.wrong{border-color:var(--danger);background:var(--danger-soft);color:var(--danger)}
+.banner{border-radius:var(--radius);padding:11px 14px;font-size:12.5px;margin-bottom:14px;line-height:1.5;background:var(--warn-soft);color:var(--warn)}
+.src a{font-family:var(--m);font-size:12px;word-break:break-all;color:var(--accent)}
+.lv{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:1px 6px;border-radius:5px;margin-right:4px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.flash{outline:2px solid var(--accent)}
+input[type=date]{width:100%;min-height:var(--tap);padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink);font-size:17px;font-weight:650}
+.empty{text-align:center;padding:26px 14px}
+.big{font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent)}
+footer{padding:4px 0 30px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6}
+@media (prefers-reduced-motion:reduce){.flip .in{transition:none}}
+.lessonbtn{margin-top:6px;min-height:36px;padding:5px 12px;font-size:13px}
+.lesson{padding:14px;display:grid;gap:10px;font-size:15.5px;line-height:1.65}
+.lesson .lead{font-size:16px;color:var(--ink);margin:0}
+.lesson h3{margin:10px 0 0;font-size:14px;text-transform:uppercase;letter-spacing:.4px;color:var(--accent)}
+.lesson p,.lesson ol,.lesson ul{margin:0}
+.lesson ol,.lesson ul{padding-left:20px;display:grid;gap:4px}
+.lesson table{font-size:13.5px;line-height:1.45}
+.lesson th,.lesson td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:normal;min-width:110px}
+.lesson th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px}
+.ev{background:var(--bg);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;font-size:13.5px}
+.case{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.case details{margin-top:6px}.case summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.steps{display:grid;gap:8px}.steps div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.lnav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand"><h1>PainPath</h1><span>Học điều trị đau mạn tính</span></div>
+  <div class="derived" id="derived"></div>
+  <nav class="tabs" id="nav" role="tablist"></nav>
+</div></header>
+<main class="wrap" id="mainwrap">
+  <div class="grpbar" id="subtabs"></div>
+  <div id="main"></div>
+  <footer>Tiến độ lưu trên trình duyệt của thiết bị này · Nguồn có DOI trong tab Nguồn</footer>
+</main>
+
+<script>
+/*DATA*/
+
+// ===== Thẻ ghi nhớ & câu hỏi theo tuần (index = tuần) =====
+const CARDS = {
+1:[
+ ["Định nghĩa đau IASP 2020","Trải nghiệm cảm giác và cảm xúc khó chịu, liên quan hoặc giống như liên quan đến tổn thương mô thực sự hay tiềm tàng.","RAJA"],
+ ["Điểm mới của định nghĩa 2020 so với 1979","Bỏ yêu cầu 'mô tả bằng lời'; thêm 'giống như liên quan' để bao gồm người không giao tiếp được (trẻ nhỏ, sa sút trí tuệ, bệnh nhân thở máy).","RAJA"],
+ ["Đau và cảm thụ đau (nociception) khác nhau thế nào?","Nociception là hoạt động thần kinh mã hóa kích thích có hại; đau là trải nghiệm có ý thức. Không thể suy ra đau chỉ từ hoạt động neuron cảm giác.","RAJA"],
+ ["Sợi Aδ","Myelin mỏng, dẫn nhanh, 'đau thứ nhất': nhói, khu trú rõ.","BENZON"],
+ ["Sợi C","Không myelin, dẫn chậm, 'đau thứ hai': rát, âm ỉ, lan tỏa.","BENZON"],
+ ["Lớp I, II, V sừng sau","I: neuron đặc hiệu cảm thụ đau. II (chất keo): nhiều interneuron điều biến. V: neuron WDR nhận cả Aβ, Aδ, C, góp phần giải thích đau quy chiếu tạng.","BENZON"],
+ ["Bó gai–đồi thị bắt chéo ở đâu?","Trong tủy, qua mép trắng trước, trong 1–2 đốt; đi lên cột bên–trước đối bên. Cơ sở của cordotomy.","BENZON"],
+ ["Nhạy cảm hóa ngoại biên","Chất viêm (PGE2, bradykinin, NGF) hạ ngưỡng thụ thể (TRPV1…) → tăng cảm đau nguyên phát tại vùng tổn thương.","BENZON"],
+ ["Wind-up","Kích thích sợi C lặp lại → khử cực kéo dài → mở nút Mg²⁺ kênh NMDA → đáp ứng sừng sau tăng dần.","BENZON"],
+ ["Tăng cảm đau thứ phát","Tăng cảm ở vùng lành quanh tổn thương; phản ánh nhạy cảm hóa trung ương.","BENZON"],
+ ["Allodynia và hyperalgesia","Allodynia: đau do kích thích bình thường không đau. Hyperalgesia: đau quá mức với kích thích vốn gây đau.","BENZON"],
+ ["Trục ức chế đi xuống","PAG → RVM → sừng sau. Có thể ức chế hoặc tạo thuận; opioid tác dụng một phần qua trục này.","BENZON"],
+ ["Vì sao SNRI/TCA giảm đau?","Tăng noradrenaline ở đường đi xuống, tác động α2 ở sừng sau. Đây là cơ chế; hiệu quả lâm sàng xem NeuPSIG 2025.","BENZON"],
+ ["Mốc thời gian đau mạn theo ICD-11","Đau kéo dài hoặc tái diễn trên 3 tháng.","ICD11"],
+ ["Yếu tố nguy cơ đau mạn sau mổ","Đau trước mổ, đau cấp sau mổ nặng, catastrophizing, phẫu thuật tổn thương thần kinh. Liên quan là quan sát; hiệu quả phòng ngừa còn chưa thống nhất.","BENZON"]
+]};
+
+const QUIZ = {
+1:[
+ ["Định nghĩa đau của IASP 2020 khác bản 1979 ở điểm cốt lõi nào?",["Đau phải có tổn thương mô thực sự","Đau là trải nghiệm liên quan, hoặc giống như liên quan, đến tổn thương mô thực sự hay tiềm tàng","Đau chỉ được xác định khi bệnh nhân mô tả được bằng lời","Đau đồng nghĩa với hoạt động thụ thể cảm thụ đau"],1,"Bản 2020 thêm 'giống như liên quan' để bao gồm người không diễn đạt được bằng lời (trẻ nhỏ, sa sút trí tuệ, bệnh nhân thở máy).","RAJA"],
+ ["Ý nào KHÔNG nằm trong 6 ghi chú của định nghĩa IASP 2020?",["Đau và nociception là hai hiện tượng khác nhau","Báo cáo đau của người bệnh cần được tôn trọng","Không giao tiếp được không loại trừ khả năng đang đau","Đau không có tổn thương trên hình ảnh thì xếp là đau tâm lý"],3,"Không có ghi chú nào gán 'đau tâm lý' cho đau không thấy tổn thương; các ghi chú nhấn mạnh ảnh hưởng sinh học – tâm lý – xã hội.","RAJA"],
+ ["Sợi nào dẫn 'đau thứ hai' (âm ỉ, rát, khởi phát chậm)?",["Aβ","Aδ","C","Aα"],2,"Sợi C không myelin, dẫn chậm. Aδ dẫn 'đau thứ nhất' nhanh, nhói.","BENZON"],
+ ["Neuron WDR ở sừng sau tập trung chủ yếu ở lớp nào?",["Lớp I","Lớp II","Lớp V","Lớp IX"],2,"Lớp V nhận cả Aβ, Aδ, C, góp phần giải thích đau quy chiếu từ tạng.","BENZON"],
+ ["Bó gai–đồi thị bắt chéo ở đâu?",["Hành não","Trong tủy, qua mép trắng trước, trong 1–2 đốt","Đồi thị","Không bắt chéo"],1,"Cơ sở giải phẫu của cordotomy trong đau ung thư một bên.","BENZON"],
+ ["Thụ thể trung tâm của wind-up và nhạy cảm hóa trung ương?",["AMPA","NMDA","GABA-A","μ-opioid"],1,"Mở nút Mg²⁺ kênh NMDA khi khử cực kéo dài. Cơ sở lý thuyết cho ketamine; bằng chứng lâm sàng học ở tuần 8.","BENZON"],
+ ["Tăng cảm đau thứ phát quanh vết mổ phản ánh chủ yếu cơ chế nào?",["Nhạy cảm hóa ngoại biên tại chỗ","Nhạy cảm hóa trung ương","Thoái hóa sợi Aβ","Tăng hoạt hệ ức chế đi xuống"],1,"Vùng lành không có chất viêm, nên tăng cảm ở đó phản ánh thay đổi ở sừng sau.","BENZON"],
+ ["Đau khi chăn chạm nhẹ vào da là gì?",["Hyperalgesia","Allodynia","Hyperpathia","Dysesthesia"],1,"Allodynia: đau do kích thích bình thường không gây đau.","BENZON"],
+ ["Trục ức chế đi xuống kinh điển?",["Vỏ → đồi thị → hạch nền","PAG → RVM → sừng sau","Tiểu não → cầu não → rễ trước","Hạch rễ sau → thần kinh ngoại biên"],1,"PAG nhận tín hiệu vỏ và hệ viền, chiếu xuống RVM rồi sừng sau.","BENZON"],
+ ["Cơ sở sinh lý hợp lý nhất cho tác dụng giảm đau của SNRI/TCA?",["Chẹn kênh Na⁺ là cơ chế duy nhất","Tăng noradrenaline ở đường đi xuống, tác động α2 sừng sau","Kích hoạt NMDA","Ức chế COX-2"],1,"TCA còn chẹn kênh Na⁺, nên 'duy nhất' là sai. Hiệu quả lâm sàng chứng minh riêng bằng RCT (NeuPSIG 2025).","BENZON"],
+ ["Theo ICD-11, đau mạn là đau kéo dài hoặc tái diễn trên bao lâu?",["1 tháng","3 tháng","6 tháng","Không dựa vào thời gian"],1,"Trên 3 tháng.","ICD11"],
+ ["Yếu tố nguy cơ đau mạn sau mổ mà người GMHS tác động trực tiếp được?",["Nhóm máu","Đau cấp sau mổ nặng","Thời gian nhịn ăn","Loại khí mê halogen"],1,"Mối liên quan là quan sát; bằng chứng rằng kiểm soát đau cấp tốt hơn làm giảm đau mạn sau mổ chưa thống nhất giữa các loại phẫu thuật.","BENZON"]
+]};
+
+/*LESSONS*/
+// ===== Trạng thái =====
+const LS = {get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+let done = LS.get("pp-done",{}), start = LS.get("pp-start","2026-11-02"), known = LS.get("pp-known",{}), scores = LS.get("pp-scores",{});
+const DOW=["T2","T3","T4","T5","T6","T7","CN"];
+const REVIEW=["Ôn tập tuần","Làm lại toàn bộ thẻ trong tuần, làm bài kiểm tra, viết một ca mẫu nửa trang.",[],"Đọc lại ghi chép trong tuần; mở lại tài liệu gốc ở những chỗ còn chưa chắc."];
+const items = w => W[w][2].concat([REVIEW]);
+const dd=(w,d)=>{const s=new Date(start+"T00:00:00");s.setDate(s.getDate()+w*7+d);return s;};
+const fmt=d=>d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit"});
+const TOT=()=>W.length*7;
+const nDone=()=>Object.keys(done).length;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function todayIdx(){const diff=Math.floor((new Date().setHours(0,0,0,0)-new Date(start+"T00:00:00"))/864e5);return diff;}
+function chips(ks){return ks.length?`<div class="chips">${ks.map(k=>`<button class="chip" data-src="${k}">${k}</button>`).join("")}</div>`:"";}
+
+const wl=w=>"Tuần "+w;
+const TABS=[["home","Hôm nay"],["road","Lộ trình"],["card","Thẻ ôn"],["quiz","Kiểm tra"],["book","Nguồn"]];
+let tab="home", sub={road:0,card:1,quiz:1,book:"all"};
+const tabFromHash=()=>{const h=location.hash.slice(1);return TABS.some(t=>t[0]===h)?h:"home";};
+
+function streakCount(){const t=todayIdx();let s=0;for(let i=Math.min(t,TOT()-1);i>=0;i--){const w=Math.floor(i/7),d=i%7;if(done[`${w}-${d}`])s++;else if(i<t)break;}return s;}
+function renderHead(){
+  const t=todayIdx(), n=nDone();
+  const wk = t<0?"Chưa bắt đầu":t>=TOT()?"Đã hết lộ trình":`Tuần ${Math.floor(t/7)+1} · ${DOW[t%7]}`;
+  document.getElementById("derived").innerHTML=`<span class="chip">${wk}</span><span class="chip g">Đã học ${n}/${TOT()}</span><span class="chip w">Chuỗi ${streakCount()} ngày</span>`;
+  document.getElementById("nav").innerHTML=TABS.map(([k,l])=>`<button role="tab" data-tab="${k}" style="--tc:var(--t-${k})" aria-selected="${k===tab}">${l}</button>`).join("");
+  const mw=document.getElementById("mainwrap"); const tk=tab==="lesson"?"road":tab; mw.style.setProperty("--accent",`var(--t-${tk})`); mw.style.setProperty("--accent-soft",`var(--t-${tk}-soft)`);
+}
+function setSub(html,scroll){const el=document.getElementById("subtabs");el.innerHTML=html;el.classList.toggle("scroll",!!scroll);}
+function weekChips(kind){const ws=Object.keys(kind==="card"?CARDS:QUIZ).map(Number);return Array.from({length:W.length},(_,i)=>i+1).map(w=>`<button data-sub="${w}" class="${sub[tab]===w?"on":""}" ${ws.includes(w)?"":"disabled"}>Tuần ${w}</button>`).join("");}
+
+function render(){
+  renderHead(); const m=document.getElementById("main");
+  if(tab==="lesson"){setSub("");m.innerHTML=lessonView();return;}
+  if(tab==="home"){setSub("");m.innerHTML=homeView();}
+  if(tab==="road"){setSub(["Tất cả"].concat(PHASES.map((p,i)=>"GĐ "+(i+1))).map((l,i)=>`<button data-sub="${i}" class="${sub.road===i?"on":""}">${l}</button>`).join(""));m.innerHTML=roadView();}
+  if(tab==="card"){setSub(weekChips("card"),true);m.innerHTML=cardView();}
+  if(tab==="quiz"){setSub(weekChips("quiz"),true);m.innerHTML=quizView();}
+  if(tab==="book"){setSub([["all","Tất cả"],["sr","Tổng quan HT"],["gl","Guideline"],["cs","Đồng thuận"],["tb","Sách"]].map(([k,l])=>`<button data-sub="${k}" class="${sub.book===k?"on":""}">${l}</button>`).join(""));m.innerHTML=bookView();}
+}
+
+function homeView(){
+  const t=todayIdx(), n=nDone(); let main;
+  if(t<0){main=`<div class="card"><h2>Sắp bắt đầu</h2><div class="body"><div class="title">Lộ trình bắt đầu ${fmt(new Date(start+"T00:00:00"))}</div><p class="muted small" style="margin:0">Còn ${-t} ngày. Có thể đọc trước định nghĩa IASP 2020 trong tab Nguồn.</p></div></div>`;}
+  else if(t>=TOT()){main=`<div class="card"><h2>Đã hết lộ trình ${W.length} tuần</h2><div class="body"><p class="muted small" style="margin:0">Xem lại các buổi chưa tick trong tab Lộ trình.</p></div></div>`;}
+  else{const w=Math.floor(t/7),d=t%7,it=items(w)[d],id=`${w}-${d}`;
+    main=`<div class="card"><h2>Hôm nay · Tuần ${w+1} · ${DOW[d]} ${fmt(dd(w,d))}</h2><div class="body">
+    <div class="flexr" style="justify-content:space-between"><div class="title">${esc(it[0])}</div>${done[id]?'<span class="tag done">Đã học</span>':d===6?'<span class="tag rev">Ôn tập</span>':""}</div>
+    <p class="small" style="margin:0">${esc(it[1])}</p>${chips(it[2])}${readHTML(it[3])}${LESSONS[id]?`<button class="btn lessonbtn" data-lesson="${id}">📖 Đọc bài · ${LESSONS[id].min} phút</button>`:""}
+    <button class="btn ${done[id]?"":"pri"} block" data-toggle="${id}">${done[id]?"Bỏ đánh dấu":"Đánh dấu đã học"}</button>
+    <div class="flexr">${CARDS[w+1]?`<button class="btn" data-go="card" data-w="${w+1}">Ôn thẻ tuần ${w+1}</button>`:""}${QUIZ[w+1]?`<button class="btn" data-go="quiz" data-w="${w+1}">Kiểm tra tuần ${w+1}</button>`:""}</div></div></div>`;}
+  const k=Object.keys(known).length, tc=Object.values(CARDS).reduce((a,c)=>a+c.length,0);
+  const sc=Object.entries(scores).map(([w,s])=>`<div class="row ${s.r/s.n>=.8?"ok":""}"><span class="nm">${wl(w)}</span><span class="sub">${s.r/s.n>=.8?"Đạt (≥80%)":"Chưa đạt, nên ôn lại thẻ"}</span><span class="val">${s.r}/${s.n}</span></div>`).join("")||'<div class="note" style="border-top:0">Chưa làm bài kiểm tra nào.</div>';
+  const how=`<div class="card"><h2>Buổi học 90 phút</h2>
+  <div class="row"><span class="nm">Bài tóm tắt trong app</span><span class="sub">Nắm khung và trọng tâm trước khi đọc gốc</span><span class="val">20<small>phút</small></span></div>
+  <div class="row"><span class="nm">Đọc gốc</span><span class="sub">Chương sách hoặc guideline ghi ở mục "Đọc gốc"</span><span class="val">50<small>phút</small></span></div>
+  <div class="row"><span class="nm">Thẻ ôn và ghi chép</span><span class="sub">Tóm tắt 5–7 dòng, gắn với một bệnh nhân thật</span><span class="val">20<small>phút</small></span></div>
+  <div class="note">Khung kiến thức bám theo EFIC EDPM curriculum (bản 2, 2023). Mã EDPM ghi ở từng tuần trong tab Lộ trình.</div></div>`;
+  return main+how+`<div class="card"><h2>Tiến độ</h2>
+  <div class="row"><span class="nm">Buổi đã học</span><span class="sub"><span class="bar" style="display:block;margin-top:4px"><i style="width:${(n/TOT()*100).toFixed(1)}%"></i></span></span><span class="val">${n}<small>/ ${TOT()}</small></span></div>
+  <div class="row"><span class="nm">Chuỗi ngày liên tiếp</span><span class="sub">Tính đến hôm nay</span><span class="val">${streakCount()}<small>ngày</small></span></div>
+  <div class="row"><span class="nm">Thẻ đã nhớ</span><span class="sub">Trên tổng số thẻ đã soạn</span><span class="val">${k}<small>/ ${tc}</small></span></div></div>
+  <div class="card"><h2>Điểm kiểm tra</h2>${sc}</div>
+  <div class="card"><h2>Cài đặt</h2><div class="body"><label class="lbl" for="startdate">Ngày bắt đầu lộ trình</label><input type="date" id="startdate" value="${start}"></div><div class="note">Tiến độ lưu trên trình duyệt của thiết bị này, không đồng bộ giữa các máy.</div></div>`;
+}
+
+function roadView(){
+  const ph = sub.road===0?PHASES:[PHASES[sub.road-1]];
+  return ph.map(p=>{let h=`<div class="card"><h2>${p.n}</h2><div class="note" style="border-top:0"><b>${p.w}.</b> ${p.p}</div></div>`;
+    for(let i=p.from;i<=p.to;i++){const w=i-1,its=items(w),c=its.filter((_,d)=>done[`${w}-${d}`]).length,cur=Math.floor(todayIdx()/7)===w;
+      h+=`<details class="wk" id="wk${i}" ${cur?"open":""}><summary><span class="pill">T${String(i).padStart(2,"0")}</span><span class="wt">${esc(W[w][0])}<small>${fmt(dd(w,0))} – ${fmt(dd(w,6))}${EDPMTAG[w]&&EDPMTAG[w]!=="—"?` · EDPM ${EDPMTAG[w]}`:""}</small></span><span class="wc ${c===7?"full":""}">${c}/7</span></summary>
+      <p class="goal">${esc(W[w][1])}</p><ul class="days">${its.map((it,d)=>{const id=`${w}-${d}`;return `<li class="${done[id]?"on":""}"><input type="checkbox" data-id="${id}" ${done[id]?"checked":""} aria-label="${esc(it[0])}"><div><span class="d">${DOW[d]} ${fmt(dd(w,d))}</span><b>${esc(it[0])}</b><span class="small muted">${esc(it[1])}</span>${chips(it[2])}${readHTML(it[3])}${LESSONS[id]?`<button class="btn lessonbtn" data-lesson="${id}">📖 Đọc bài · ${LESSONS[id].min} phút</button>`:""}</div></li>`;}).join("")}</ul></details>`;}
+    return h;}).join("");
+}
+
+let ci=0, flipped=false, onlyNew=false;
+function cardView(){
+  const all=CARDS[sub.card]; if(!all) return `<div class="card"><h2>${wl(sub.card)}</h2><div class="empty muted">Chưa có thẻ cho tuần này.</div></div>`;
+  const list=all.map((c,i)=>({c,i})).filter(x=>!onlyNew||!known[`${sub.card}-${x.i}`]);
+  const nk=all.filter((_,i)=>known[`${sub.card}-${i}`]).length;
+  const head=`<div class="card"><h2>Thẻ ôn · ${wl(sub.card)}</h2><div class="row"><span class="nm">Đã nhớ</span><span class="sub"><span class="bar" style="display:block;margin-top:4px"><i style="width:${nk/all.length*100}%"></i></span></span><span class="val">${nk}<small>/ ${all.length}</small></span></div><div class="note"><label class="flexr"><input type="checkbox" id="onlynew" ${onlyNew?"checked":""}> Chỉ hiện thẻ chưa nhớ</label></div></div>`;
+  if(!list.length) return head+`<div class="card"><div class="empty"><b>Đã nhớ hết ${all.length} thẻ</b><br><button class="btn" style="margin-top:10px" data-act="allcards">Ôn lại toàn bộ</button></div></div>`;
+  if(ci>=list.length) ci=0; const {c,i}=list[ci];
+  return head+`<div class="flip ${flipped?"on":""}" data-act="flip" role="button" tabindex="0" aria-label="Lật thẻ"><div class="in">
+  <div class="face"><span class="lbl">Thẻ ${ci+1}/${list.length} · Câu hỏi</span><div class="q">${esc(c[0])}</div><span class="s">Chạm để xem đáp án</span></div>
+  <div class="face back"><span class="lbl">Đáp án</span><div>${esc(c[1])}</div><span class="s">Nguồn: ${c[2]}</span></div></div></div>
+  <div class="cardnav"><button class="btn bad" data-know="0" data-i="${i}">Chưa nhớ</button><button class="btn good" data-know="1" data-i="${i}">Đã nhớ</button></div>`;
+}
+
+let qi=0, picked=null, right=0;
+function quizView(){
+  const Q=QUIZ[sub.quiz]; if(!Q) return `<div class="card"><h2>${wl(sub.quiz)}</h2><div class="empty muted">Chưa có bài kiểm tra cho tuần này.</div></div>`;
+  if(qi>=Q.length) return `<div class="card"><h2>Kết quả · ${wl(sub.quiz)}</h2><div class="empty"><div class="big">${right}/${Q.length}</div><p class="muted small">${right/Q.length>=.8?"Đạt mục tiêu (≥80%).":"Dưới 80%: nên ôn lại thẻ rồi làm lại."}</p><button class="btn pri" data-act="restart">Làm lại</button></div></div>`;
+  const q=Q[qi];
+  return `<div class="card"><h2>${wl(sub.quiz)} · Câu ${qi+1}/${Q.length} · Đúng ${right}</h2><div class="body">
+  <div class="bar"><i style="width:${qi/Q.length*100}%"></i></div>
+  <div class="title" style="font-size:16px">${esc(q[0])}</div>
+  ${q[1].map((o,j)=>`<button class="opt ${picked==null?"":j===q[2]?"right":j===picked?"wrong":""}" data-pick="${j}" ${picked!=null?"disabled":""}>${String.fromCharCode(65+j)}. ${esc(o)}</button>`).join("")}</div>
+  ${picked!=null?`<div class="note"><b>${picked===q[2]?"Đúng.":"Chưa đúng."}</b> ${esc(q[3])} ${chips([q[4]])}</div><div class="body"><button class="btn pri block" data-act="next">${qi+1<Q.length?"Câu tiếp":"Xem kết quả"}</button></div>`:""}</div>`;
+}
+
+const LVN={sr:"Tổng quan HT",gl:"Guideline",cs:"Đồng thuận",tb:"Sách / tài nguyên"};
+function bookView(){
+  const e=Object.entries(SRC).filter(([k,v])=>sub.book==="all"||v.lvl===sub.book);
+  return `<div class="banner">Nhãn "Đồng thuận" nghĩa là khuyến cáo chủ yếu dựa trên ý kiến chuyên gia vì thiếu RCT; hướng dẫn chống đông và an toàn tiêm NMC thuộc nhóm này.</div>
+  <div class="card"><h2>Nguồn tài liệu · ${e.length}</h2>`+
+  e.map(([k,v])=>`<div class="row src" id="s-${k}" style="grid-template-columns:1fr"><span class="nm"><span class="lv">${LVN[v.lvl]}</span>${esc(v.t)}</span><span class="sub">${esc(v.n)}</span>${v.doi?`<a href="https://doi.org/${v.doi}" target="_blank" rel="noopener">doi:${v.doi}</a>`:`<a href="${v.url}" target="_blank" rel="noopener">${v.url.replace("https://","")}</a>`}</div>`).join("")+`</div>`;
+}
+
+
+let lessonId=null, lessonFrom="home";
+function lessonView(){
+  const L=LESSONS[lessonId]; const [w,d]=lessonId.split("-").map(Number); const keys=Object.keys(LESSONS);
+  const i=keys.indexOf(lessonId), prev=keys[i-1], next=keys[i+1];
+  return `<div class="card"><h2>Tuần ${w+1} · ${DOW[d]} · ${esc(L.t)}</h2><div class="lesson">${L.h}
+  <div><span class="lbl">Nguồn</span>${chips(L.src)}</div>
+  <p class="muted small">Bài tóm tắt do trợ lý soạn từ các nguồn trên, không chép nguyên văn. Với liều thuốc và ngưỡng quyết định quan trọng, đối chiếu lại tài liệu gốc.</p></div></div>
+  <button class="btn ${done[lessonId]?"":"pri"} block" data-toggle="${lessonId}" style="margin-bottom:10px">${done[lessonId]?"✓ Đã học buổi này":"Đánh dấu đã học buổi này"}</button>
+  <div class="lnav"><button class="btn" ${prev?`data-lesson="${prev}"`:"disabled"}>‹ Bài trước</button><button class="btn" ${next?`data-lesson="${next}"`:"disabled"}>Bài sau ›</button></div>
+  <button class="btn block" data-back="1" style="margin-top:10px">Quay lại</button>`;
+}
+function go(t){tab=t; if(location.hash.slice(1)!==t) history.replaceState(null,"","#"+t); render(); window.scrollTo(0,0);}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,[data-act]"); if(!b) return;
+  if(b.dataset.tab) return go(b.dataset.tab);
+  if(b.dataset.lesson){if(tab!=="lesson")lessonFrom=tab;lessonId=b.dataset.lesson;tab="lesson";render();window.scrollTo(0,0);return;}
+  if(b.dataset.back){go(lessonFrom);return;}
+  if(b.dataset.sub!==undefined){const v=b.dataset.sub; sub[tab]= (tab==="book")?v:Number(v); ci=0;flipped=false;qi=0;picked=null;right=0; return render();}
+  if(b.dataset.src){sub.book="all";go("book");const el=document.getElementById("s-"+b.dataset.src);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);}return;}
+  if(b.dataset.toggle){const id=b.dataset.toggle; if(done[id]) delete done[id]; else done[id]=1; LS.set("pp-done",done); return render();}
+  if(b.dataset.go){sub[b.dataset.go]=Number(b.dataset.w);ci=0;flipped=false;qi=0;picked=null;right=0;return go(b.dataset.go);}
+  const a=b.dataset.act;
+  if(a==="flip"){flipped=!flipped;b.classList.toggle("on",flipped);return;}
+  if(b.dataset.know!==undefined){const key=`${sub.card}-${b.dataset.i}`; if(b.dataset.know==="1") known[key]=1; else delete known[key]; LS.set("pp-known",known); flipped=false; if(!(onlyNew&&b.dataset.know==="1")) ci++; return render();}
+  if(a==="allcards"){onlyNew=false;ci=0;return render();}
+  if(b.dataset.pick!==undefined&&picked==null){picked=Number(b.dataset.pick); if(picked===QUIZ[sub.quiz][qi][2]) right++; return render();}
+  if(a==="next"){qi++;picked=null; if(qi>=QUIZ[sub.quiz].length){scores[sub.quiz]={r:right,n:QUIZ[sub.quiz].length};LS.set("pp-scores",scores);} return render();}
+  if(a==="restart"){qi=0;picked=null;right=0;return render();}
+});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.act==="flip"){e.preventDefault();e.target.click();}});
+document.addEventListener("change",e=>{
+  if(e.target.dataset.id){const id=e.target.dataset.id; if(e.target.checked) done[id]=1; else delete done[id]; LS.set("pp-done",done);
+    e.target.closest("li").classList.toggle("on",e.target.checked); const w=id.split("-")[0]; const c=[0,1,2,3,4,5,6].filter(d=>done[`${w}-${d}`]).length;
+    const wc=e.target.closest("details").querySelector(".wc"); wc.textContent=`${c}/7`; wc.classList.toggle("full",c===7); renderHead();}
+  if(e.target.id==="startdate"&&e.target.value){start=e.target.value;LS.set("pp-start",start);render();}
+  if(e.target.id==="onlynew"){onlyNew=e.target.checked;ci=0;flipped=false;render();}
+});
+window.addEventListener("hashchange",()=>{tab=tabFromHash();render();});
+tab=tabFromHash(); render();
+</script>

@@ -1,0 +1,453 @@
+<title>Lộ trình Đau mạn 26 tuần</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Literata:opsz,wght@7..72,500;7..72,700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: một cột đọc rộng ~760px; thanh tiến độ dạng thước NRS 0–10; các tuần là accordion nhóm theo 5 giai đoạn */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --ink:#18262a; --muted:#56666b; --line:#d9e1df;
+  --accent:#0d6e6a; --accent-soft:#dcefed; --warm:#a86a12; --warm-soft:#f6ead6;
+  --done:#2f7d4f;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111a1c; --surface:#182427; --ink:#e3ebe9; --muted:#9db0b1; --line:#2b3b3e;
+  --accent:#4fbfb7; --accent-soft:#163a39; --warm:#e0a648; --warm-soft:#3a2d17; --done:#6cc28f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111a1c; --surface:#182427; --ink:#e3ebe9; --muted:#9db0b1; --line:#2b3b3e;
+  --accent:#4fbfb7; --accent-soft:#163a39; --warm:#e0a648; --warm-soft:#3a2d17; --done:#6cc28f; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.6}
+.wrap{max-width:780px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:clamp(1.7rem,4.5vw,2.3rem)}
+h2{font-size:1.3rem}
+p{margin:0}
+.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lead{color:var(--muted);max-width:64ch}
+header{display:grid;gap:10px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.88rem}
+.meta b{color:var(--ink);font-weight:600}
+/* progress ruler */
+.ruler{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px}
+.ruler-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.ruler-top .big{font-family:var(--f-display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.bar{position:relative;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--accent-soft),var(--warm-soft));overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:7px;transition:width .3s}
+.ticks{display:grid;grid-template-columns:repeat(11,1fr);font-family:var(--f-mono);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ticks span{text-align:center}.ticks span:first-child{text-align:left}.ticks span:last-child{text-align:right}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.88rem}
+.controls label{color:var(--muted)}
+input[type=date]{font:inherit;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.btn{font:inherit;font-size:.85rem;padding:5px 12px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{font:inherit;font-weight:500;background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+section.panel{display:grid;gap:22px}
+/* phases */
+.phase{display:grid;gap:10px}
+.phase-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.phase-head .wk{font-family:var(--f-mono);font-size:.78rem;color:var(--warm)}
+.phase-head p{color:var(--muted);font-size:.9rem;flex-basis:100%}
+details.week{background:var(--surface);border:1px solid var(--line);border-radius:8px}
+details.week[open]{border-color:var(--accent)}
+summary{list-style:none;cursor:pointer;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+.wnum{font-family:var(--f-mono);font-size:.78rem;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:4px;font-variant-numeric:tabular-nums}
+.wtitle{font-weight:600;min-width:0}
+.wtitle small{display:block;font-weight:400;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.wcount{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.wcount.full{color:var(--done)}
+.wbody{padding:0 14px 14px;display:grid;gap:12px}
+.goal{font-size:.9rem;color:var(--muted);border-left:2px solid var(--warm);padding-left:10px}
+ol.days{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+ol.days li{display:grid;grid-template-columns:22px 52px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);align-items:start}
+ol.days li:first-child{border-top:0}
+ol.days input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px}
+.dlabel{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.dtxt{min-width:0}
+.dtxt b{font-weight:600}
+.dtxt .rd{display:block;color:var(--muted);font-size:.88rem}
+.src{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.chip{font-family:var(--f-mono);font-size:.7rem;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);text-decoration:none;border:0;cursor:pointer}
+.chip:hover{text-decoration:underline}
+li.done .dtxt b{text-decoration:line-through;text-decoration-color:var(--muted)}
+li.review .dtxt b{color:var(--warm)}
+/* sources */
+.srcgroup{display:grid;gap:8px}
+.srcitem{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;gap:4px;scroll-margin-top:16px}
+.srcitem.flash{border-color:var(--warm)}
+.srcitem .k{font-family:var(--f-mono);font-size:.72rem;color:var(--accent)}
+.srcitem .t{font-weight:600}
+.srcitem .n{font-size:.88rem;color:var(--muted)}
+.lvl{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-right:6px}
+.lvl.sr{background:var(--accent-soft);color:var(--accent)}
+.lvl.gl{background:var(--warm-soft);color:var(--warm)}
+.lvl.cs{background:var(--line);color:var(--ink)}
+.lvl.tb{border:1px solid var(--line);color:var(--muted)}
+a{color:var(--accent)}
+.doi{font-family:var(--f-mono);font-size:.78rem;word-break:break-all}
+.prose{display:grid;gap:12px;max-width:68ch}
+.prose h3{font-size:1.05rem;margin-top:8px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+td.m{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablebox{overflow-x:auto}
+.note{background:var(--warm-soft);border-radius:8px;padding:12px 14px;font-size:.9rem}
+@media (max-width:480px){ol.days li{grid-template-columns:22px 1fr}.dlabel{grid-column:2}.dtxt{grid-column:2}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Khoa Gây mê – Hồi sức · Tự học</span>
+  <h1>Lộ trình 26 tuần trở thành bác sĩ điều trị đau mạn tính</h1>
+  <p class="lead">60 phút mỗi ngày, 6 buổi học và 1 buổi ôn mỗi tuần. Phạm vi toàn diện, phần can thiệp được dành nhiều thời gian nhất (9 tuần), mục tiêu là thực hành lâm sàng tại Việt Nam.</p>
+  <div class="meta"><span><b>182</b> buổi</span><span><b>5</b> giai đoạn</span><span><b>26</b> nguồn chính</span><span>Cập nhật nguồn: 31/10/2026</span></div>
+</header>
+
+<div class="ruler" aria-label="Tiến độ">
+  <div class="ruler-top">
+    <div><span class="eyebrow">Tiến độ</span><div class="big" id="pct">0 / 182 buổi</div></div>
+    <div class="controls">
+      <label for="start">Ngày bắt đầu</label><input type="date" id="start">
+      <button class="btn" id="jump" type="button">Mở tuần hiện tại</button>
+    </div>
+  </div>
+  <div class="bar"><i id="barfill" style="width:0%"></i></div>
+  <div class="ticks" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="plan" id="tab-plan">Lộ trình</button>
+  <button role="tab" aria-selected="false" data-tab="src" id="tab-src">Nguồn tài liệu</button>
+  <button role="tab" aria-selected="false" data-tab="how" id="tab-how">Cách học 60 phút</button>
+</nav>
+
+<section class="panel" id="panel-plan"></section>
+<section class="panel" id="panel-src" hidden></section>
+<section class="panel" id="panel-how" hidden>
+  <div class="prose">
+    <h2>Cấu trúc một buổi 60 phút</h2>
+    <div class="tablebox"><table>
+      <tr><th>Phút</th><th>Việc làm</th></tr>
+      <tr><td class="m">0–5</td><td>Đọc lại 3 thẻ ghi nhớ của buổi trước (active recall, không nhìn đáp án).</td></tr>
+      <tr><td class="m">5–40</td><td>Đọc nguồn của buổi. Với guideline, đọc phần khuyến cáo và bảng tóm tắt trước, rồi mới đọc phần bằng chứng.</td></tr>
+      <tr><td class="m">40–55</td><td>Viết tóm tắt 5–7 dòng bằng tiếng Việt và tạo 3 thẻ hỏi–đáp. Ghi rõ mỗi ý là <i>bằng chứng trực tiếp</i> (RCT/SR) hay <i>đồng thuận chuyên gia</i>.</td></tr>
+      <tr><td class="m">55–60</td><td>Gắn với một bệnh nhân thật gần đây: ý này sẽ thay đổi gì trong cách tôi khám hoặc điều trị?</td></tr>
+    </table></div>
+    <h3>Buổi ôn Chủ nhật</h3>
+    <p>Dùng toàn bộ thẻ trong tuần, tự làm 10 câu hỏi, và viết một "ca mẫu" nửa trang áp dụng kiến thức tuần đó. Cuối mỗi giai đoạn có một buổi tự kiểm tra lớn hơn.</p>
+    <h3>Vì sao sắp xếp theo thứ tự này</h3>
+    <p>Giai đoạn 1–2 đặt nền phân loại và dược lý vì mọi quyết định can thiệp đều dựa trên việc phân biệt đau cảm thụ, thần kinh và nociplastic. Giai đoạn 3 học theo hội chứng để biết khi nào can thiệp có chỗ đứng. Giai đoạn 4 dài nhất vì đây là trọng tâm anh/chị chọn, và kinh nghiệm gây tê vùng dưới siêu âm giúp rút ngắn phần sonoanatomy cơ bản. Giai đoạn 5 chuyển kiến thức thành quy trình phòng khám.</p>
+    <h3>Giới hạn của lộ trình tự học</h3>
+    <p>Tự học giúp nắm lý thuyết, chỉ định và an toàn, nhưng không thay thế được thực hành có giám sát cho các thủ thuật dưới C-arm (facet RFA, transforaminal, sympathetic block). Nên song song tìm workshop trên xác/mô hình và thời gian kiến tập tại một trung tâm đau có kinh nghiệm. Về pháp lý, phạm vi hành nghề cho kỹ thuật can thiệp đau tại Việt Nam cần được xác nhận với bệnh viện và Sở Y tế; trang này không thay thế việc đó.</p>
+  </div>
+</section>
+</div>
+
+<script>
+const SRC = {
+ RAJA:{lvl:"cs",t:"Raja SN et al. The revised IASP definition of pain (2020)",n:"Pain 2020;161(9):1976–82. Định nghĩa đau hiện hành và 6 ghi chú đi kèm.",doi:"10.1097/j.pain.0000000000001939"},
+ ICD11:{lvl:"gl",t:"Treede RD et al. Chronic pain as a symptom or a disease: IASP Classification for ICD-11 (2019)",n:"Pain 2019;160(1):19–27. Phân loại đau mạn nguyên phát và thứ phát; WHO thông qua ngày 25/5/2019. Loạt bài cùng số Pain 1/2019 đọc miễn phí.",doi:"10.1097/j.pain.0000000000001384"},
+ KOSEK:{lvl:"cs",t:"Kosek E et al. Chronic nociplastic pain affecting the musculoskeletal system: clinical criteria and grading system (2021)",n:"Pain 2021;162(11):2629–34. Tiêu chuẩn possible/probable nociplastic pain.",doi:"10.1097/j.pain.0000000000002324"},
+ FITZ:{lvl:"sr",t:"Fitzcharles MA et al. Nociplastic pain: towards an understanding of prevalent pain conditions (2021)",n:"Lancet 2021;397:2098–110. Tổng quan cơ chế và điều trị.",doi:"10.1016/S0140-6736(21)00392-5"},
+ NICE:{lvl:"gl",t:"NICE NG193. Chronic pain (primary and secondary) in over 16s (2021)",n:"Đánh giá mọi loại đau mạn và điều trị đau mạn nguyên phát. Hội Đau Anh (BPS) có ý kiến phản biện về các khuyến cáo hạn chế thuốc; nên đọc cả hai.",url:"https://www.nice.org.uk/guidance/ng193"},
+ CDC:{lvl:"gl",t:"Dowell D et al. CDC Clinical Practice Guideline for Prescribing Opioids for Pain, 2022",n:"MMWR Recomm Rep 2022;71(3):1–95. 12 khuyến cáo; không áp dụng cho đau ung thư, hồng cầu liềm, chăm sóc giảm nhẹ.",doi:"10.15585/mmwr.rr7103a1"},
+ NEUP25:{lvl:"sr",t:"Soliman N et al. (NeuPSIG) Pharmacotherapy and non-invasive neuromodulation for neuropathic pain (2025)",n:"Lancet Neurol 2025;24(5):413–28. SR/MA 313 RCT (n=48.789), GRADE. Bậc 1: TCA, gabapentinoid, SNRI; bậc 2: thuốc bôi cho đau khu trú; bậc 3 (khuyến cáo yếu): BTX-A, rTMS, opioid. Khuyến cáo yếu không dùng cannabinoid. Truy cập mở.",doi:"10.1016/S1474-4422(25)00068-7"},
+ NEUP15:{lvl:"sr",t:"Finnerup NB et al. Pharmacotherapy for neuropathic pain in adults (2015)",n:"Lancet Neurol 2015;14(2):162–73. Bản trước, dùng để so sánh thay đổi.",doi:"10.1016/S1474-4422(14)70251-0"},
+ CRPS:{lvl:"cs",t:"Goebel A et al. The Valencia consensus-based adaptation of the IASP CRPS diagnostic criteria (2021)",n:"Pain 2021;162(9):2346–48. Tiêu chuẩn Budapest và các điều chỉnh (CRPS-NOS, CRPS có triệu chứng giảm).",doi:"10.1097/j.pain.0000000000002245"},
+ LBP:{lvl:"sr",t:"Foster NE et al. (Lancet Low Back Pain Series) Prevention and treatment of low back pain (2018)",n:"Lancet 2018;391:2368–83. Tổng hợp guideline: không dùng thuốc trước, hạn chế hình ảnh, opioid, tiêm cột sống và phẫu thuật không cần thiết.",doi:"10.1016/S0140-6736(18)30489-6"},
+ WHO:{lvl:"gl",t:"WHO guidelines for the pharmacological and radiotherapeutic management of cancer pain in adults and adolescents (2018)",n:"Miễn phí, giấy phép CC BY-NC-SA. Ba trọng tâm: thuốc giảm đau, thuốc hỗ trợ, đau do di căn xương.",url:"https://www.ncbi.nlm.nih.gov/books/NBK537492/"},
+ ESMO:{lvl:"gl",t:"Fallon M et al. Management of cancer pain in adult patients: ESMO Clinical Practice Guidelines (2018)",n:"Ann Oncol 2018;29(Suppl 4):iv166–iv191. Có khuyến cáo về can thiệp (celiac plexus trong ung thư tụy, intrathecal).",url:"https://www.esmo.org/guidelines/supportive-and-palliative-care/cancer-pain"},
+ COAG:{lvl:"cs",t:"Narouze S et al. Interventional spine and pain procedures in patients on antiplatelet and anticoagulant medications, 2nd ed (2018)",n:"Reg Anesth Pain Med 2018;43(3):225–62. Phân tầng nguy cơ chảy máu thấp/trung bình/cao theo thủ thuật. Tác giả không phân độ bằng chứng do thiếu nghiên cứu lớn. Có ứng dụng ASRA Coags.",doi:"10.1097/AAP.0000000000000700"},
+ ESI:{lvl:"cs",t:"Rathmell JP et al. Safeguards to prevent neurologic complications after epidural steroid injections (2015)",n:"Anesthesiology 2015;122(5):974–84. 20 khuyến cáo đồng thuận (nhóm làm việc FDA Safe Use Initiative): hình ảnh bắt buộc, steroid không hạt cho TF cổ, mức C7–T1 cho IL cổ.",doi:"10.1097/ALN.0000000000000614"},
+ LFACET:{lvl:"cs",t:"Cohen SP et al. Consensus practice guidelines on interventions for lumbar facet joint pain (2020)",n:"Reg Anesth Pain Med 2020;45(6):424–67. 17 câu hỏi, đồng thuận đa hội. MBB dự báo tốt hơn tiêm nội khớp.",doi:"10.1136/rapm-2019-101243"},
+ CFACET:{lvl:"cs",t:"Hurley RW et al. Consensus practice guidelines on interventions for cervical spine (facet) joint pain (2022)",n:"Reg Anesth Pain Med 2022;47(1):3–59. 20 câu hỏi; truy cập mở.",doi:"10.1136/rapm-2021-103031"},
+ ASIPP:{lvl:"gl",t:"Manchikanti L et al. ASIPP guidelines for facet joint interventions (2020)",n:"Pain Physician 2020;23(3S):S1–S127. Đọc để so sánh với đồng thuận Cohen 2020 (tiêu chuẩn dương tính ≥80%).",url:"https://pubmed.ncbi.nlm.nih.gov/32503359/"},
+ BENZON:{lvl:"tb",t:"Benzon HT et al. Practical Management of Pain, 6th ed. Elsevier 2022",n:"Sách gốc xuyên suốt lộ trình (≈1.176 trang). Số chương ghi theo tên chương vì cách đánh số khác nhau giữa bản in và bản điện tử.",url:"https://shop.elsevier.com/books/practical-management-of-pain/benzon/978-0-323-71101-2"},
+ NAROUZE:{lvl:"tb",t:"Narouze SN (ed). Atlas of Ultrasound-Guided Procedures in Interventional Pain Management, 2nd ed. Springer 2018",n:"7 phần: cơ bản siêu âm, cột sống, bụng–chậu, thần kinh ngoại vi, cơ xương khớp, neurosonology, ứng dụng mới.",url:"https://link.springer.com/book/10.1007/978-1-4939-7754-3"},
+ SIS:{lvl:"tb",t:"Spine Intervention Society. Practice Guidelines for Spinal Diagnostic & Treatment Procedures (Bogduk N, ed.), 2nd ed. 2014",n:"Chuẩn kỹ thuật dưới C-arm. Có thể đã có bản mới hơn; em chưa xác minh được, nên kiểm tra trên trang của hội (nay là IPSIS).",url:"https://www.spineintervention.org"},
+ IASPCUR:{lvl:"gl",t:"IASP Curriculum Outline on Pain for Medicine",n:"Khung năng lực dùng để tự đánh giá đầu và cuối lộ trình.",url:"https://www.iasp-pain.org/education/curricula/iasp-curriculum-outline-on-pain-for-medicine/"},
+ IASPBOOK:{lvl:"tb",t:"IASP free e-books: Core Curriculum for Professional Education in Pain; Guide to Pain Management in Low-Resource Settings",n:"Miễn phí, phù hợp bối cảnh nguồn lực hạn chế.",url:"https://www.iasp-pain.org/publications/free-ebooks/"},
+ BYT361:{lvl:"gl",t:"Bộ Y tế. Hướng dẫn chẩn đoán và điều trị các bệnh cơ xương khớp (QĐ 361/QĐ-BYT, 25/01/2014)",n:"Có bài đau thắt lưng, đau thần kinh tọa, thoái hóa cột sống cổ và phụ lục hướng dẫn dùng thuốc giảm đau, NSAID, glucocorticoid. Văn bản cũ; dùng để hiểu chuẩn trong nước, không dùng thay guideline quốc tế mới.",url:"https://vnras.com/?p=25537"},
+ VASP:{lvl:"tb",t:"Hội Nghiên cứu Đau Việt Nam (VASP) — chapter của IASP",n:"Đầu mối hội nghị và đào tạo đau trong nước.",url:"https://www.iasp-pain.org/membership/chapters/vietnam/"},
+ NYSORA:{lvl:"tb",t:"NYSORA — kho kiến thức miễn phí về gây tê và can thiệp đau dưới siêu âm",n:"Ôn nhanh sonoanatomy khi chưa có sách.",url:"https://www.nysora.com"},
+ PUBMED:{lvl:"tb",t:"PubMed — thiết lập cảnh báo",n:"Gợi ý từ khóa: chronic pain[MeSH] AND (randomized controlled trial[pt] OR systematic review[pt]); radiofrequency ablation AND facet.",url:"https://pubmed.ncbi.nlm.nih.gov"}
+};
+
+const PHASES = [
+ {n:"Giai đoạn 1 · Nền tảng",w:"Tuần 1–4",p:"Định nghĩa, cơ chế, phân loại ICD-11, kỹ năng đánh giá. Mục tiêu: phân loại đúng cơ chế đau của bất kỳ bệnh nhân nào trước khi nghĩ đến điều trị.",from:1,to:4},
+ {n:"Giai đoạn 2 · Dược lý và điều trị đa mô thức",w:"Tuần 5–9",p:"Thuốc không opioid, thuốc hỗ trợ, quản lý opioid an toàn, điều trị không dùng thuốc.",from:5,to:9},
+ {n:"Giai đoạn 3 · Các hội chứng lâm sàng",w:"Tuần 10–13",p:"Đau cột sống, đau thần kinh, CRPS, nociplastic, đau đầu, đau ung thư. Mục tiêu: biết khi nào can thiệp có chỗ đứng và khi nào không.",from:10,to:13},
+ {n:"Giai đoạn 4 · Can thiệp giảm đau",w:"Tuần 14–22",p:"Trọng tâm của lộ trình: an toàn, hình ảnh học, facet, RF, tiêm ngoài màng cứng, khớp, giao cảm, điều biến thần kinh.",from:14,to:22},
+ {n:"Giai đoạn 5 · Thực hành tại Việt Nam",w:"Tuần 23–26",p:"Xây quy trình phòng khám đau, ca lâm sàng tích hợp, tổng ôn và kế hoạch đào tạo tiếp.",from:23,to:26}
+];
+
+// mỗi tuần: [tiêu đề, mục tiêu, [6 buổi: [tên, việc cần làm, [nguồn]]]]
+const W = [
+["Đau là gì: định nghĩa và sinh lý","Giải thích được con đường từ thụ thể đến vỏ não và cơ chế mạn tính hóa.",[
+ ["Định nghĩa IASP 2020","Đọc toàn văn và 6 ghi chú; so với định nghĩa 1979.",["RAJA"]],
+ ["Giải phẫu đường dẫn truyền","Benzon: chương giải phẫu – sinh lý đau. Vẽ sơ đồ thụ thể → sừng sau → đồi thị → vỏ.",["BENZON"]],
+ ["Nhạy cảm ngoại biên và trung ương","Cơ chế wind-up, LTP, vai trò NMDA; liên hệ ketamine trong GMHS.",["BENZON"]],
+ ["Hệ ức chế đi xuống","PAG–RVM, noradrenaline/serotonin; vì sao SNRI và TCA có tác dụng giảm đau.",["BENZON"]],
+ ["Chuyển đau cấp thành mạn","Yếu tố nguy cơ sinh học, tâm lý, phẫu thuật; đau mạn sau mổ.",["BENZON","ICD11"]],
+ ["Tổng hợp tuần","Viết một trang tóm tắt cơ chế đau bằng lời của mình.",[]]]],
+["Phân loại đau mạn","Phân loại được đau mạn nguyên phát, thứ phát, và 3 mô tả cơ chế.",[
+ ["ICD-11: nguyên phát và thứ phát","Đọc Treede 2019, lập sơ đồ 7 nhóm đau mạn.",["ICD11"]],
+ ["Đau nociplastic: tiêu chuẩn","Đọc Kosek 2021, học lưu đồ possible/probable.",["KOSEK"]],
+ ["Đau nociplastic: cơ chế và điều trị","Đọc Fitzcharles 2021, ghi các điểm còn tranh cãi.",["FITZ"]],
+ ["Đau hỗn hợp","Bệnh nhân vừa có thành phần cảm thụ vừa thần kinh: cách mô tả và ghi hồ sơ.",["BENZON"]],
+ ["NICE NG193 mục 1.1","Đánh giá lấy người bệnh làm trung tâm; đau nguyên phát và thứ phát cùng tồn tại.",["NICE"]],
+ ["Thực hành phân loại","Phân loại 5 bệnh nhân gần đây theo ICD-11 và cơ chế.",["ICD11"]]]],
+["Đánh giá bệnh nhân đau","Khám có cấu trúc và dùng đúng thang đo.",[
+ ["Hỏi bệnh sử đau","Khung SOCRATES mở rộng, tiền sử thuốc, mục tiêu chức năng.",["BENZON"]],
+ ["Khám cảm giác tại giường","Bedside QST: chạm, kim, lạnh, rung; tìm allodynia và hyperalgesia.",["BENZON"]],
+ ["Thang đo cường độ và chức năng","NRS, BPI, ODI, NDI; chọn bộ thang tối thiểu cho phòng khám.",["BENZON"]],
+ ["Sàng lọc đau thần kinh và tâm lý","DN4, LANSS, PHQ-9, GAD-7, Pain Catastrophizing Scale, STarT Back.",["BENZON"]],
+ ["Red flags và chỉ định hình ảnh","Khi nào chụp MRI, khi nào điện cơ; tránh chụp không cần thiết.",["LBP"]],
+ ["Tự soạn phiếu khám","Soạn phiếu khám đau 1 trang dùng được tại khoa.",[]]]],
+["Mô hình sinh học – tâm lý – xã hội","Giao tiếp và đặt mục tiêu với bệnh nhân đau mạn.",[
+ ["Mô hình biopsychosocial","Benzon: chương điều trị đau liên ngành.",["BENZON"]],
+ ["Giáo dục khoa học thần kinh về đau","Cách giải thích đau mạn cho bệnh nhân bằng ngôn ngữ đời thường.",["BENZON"]],
+ ["Ra quyết định chung","Trình bày lợi ích – nguy cơ; đặt mục tiêu chức năng thay vì mục tiêu NRS = 0.",["NICE"]],
+ ["Đau trong bối cảnh nguồn lực hạn chế","IASP Guide to Pain Management in Low-Resource Settings: các chương tổ chức dịch vụ.",["IASPBOOK"]],
+ ["Tự đánh giá theo khung IASP","Đánh dấu năng lực đã có/chưa có theo IASP Curriculum Outline.",["IASPCUR"]],
+ ["Kiểm tra giai đoạn 1","Tự làm 20 câu hỏi và 1 ca phân loại đầy đủ.",[]]]],
+["Thuốc không opioid","Kê đơn an toàn paracetamol, NSAID và thuốc bôi.",[
+ ["Paracetamol","Cơ chế, liều tối đa, bệnh gan; bằng chứng hiệu quả hạn chế trong đau lưng mạn.",["BENZON","LBP"]],
+ ["NSAID và ức chế COX-2","Nguy cơ tiêu hóa, tim mạch, thận; chọn thuốc theo bệnh kèm.",["BENZON"]],
+ ["Thuốc bôi","NSAID bôi, lidocaine 5%, capsaicin 8%; chỉ định đau khu trú.",["BENZON","NEUP25"]],
+ ["Thuốc giãn cơ và thuốc khác","Bằng chứng yếu, nguy cơ an thần; khi nào tránh.",["BENZON"]],
+ ["Hướng dẫn trong nước","Phụ lục thuốc giảm đau và NSAID của Bộ Y tế; ghi chỗ khác với guideline mới.",["BYT361"]],
+ ["Ca kê đơn","Viết đơn cho 3 bệnh nhân: người già suy thận, loét dạ dày cũ, bệnh mạch vành.",[]]]],
+["Thuốc hỗ trợ cho đau thần kinh","Chọn thuốc bậc 1 theo NeuPSIG 2025 và chỉnh liều.",[
+ ["NeuPSIG 2025: phương pháp","Đọc phần Methods và Results; hiểu NNT, NNH, GRADE.",["NEUP25"]],
+ ["NeuPSIG 2025: khuyến cáo","Bậc 1, 2, 3 và các khuyến cáo không dùng. So với bản 2015.",["NEUP25","NEUP15"]],
+ ["TCA và SNRI","Amitriptyline, nortriptyline, duloxetine: liều khởi đầu, chỉnh liều, ECG, người già.",["BENZON"]],
+ ["Gabapentinoid","Pregabalin, gabapentin: chỉnh theo thận, nguy cơ lạm dụng, phối hợp với opioid.",["BENZON","NEUP25"]],
+ ["Tương tác thuốc","Hội chứng serotonin (tramadol + SNRI), kéo dài QT, ức chế hô hấp.",["BENZON"]],
+ ["Bảng tra nhanh","Lập bảng 1 trang: thuốc, liều, chỉnh liều, tác dụng phụ chính.",[]]]],
+["Opioid trong đau mạn","Kê, theo dõi và giảm liều opioid an toàn.",[
+ ["Dược lý opioid","Thụ thể, chuyển hóa (CYP2D6 với tramadol, codeine), tăng cảm đau do opioid.",["BENZON"]],
+ ["CDC 2022: khuyến cáo 1–5","Có khởi trị opioid không, chọn loại nào, liều nào.",["CDC"]],
+ ["CDC 2022: khuyến cáo 6–12","Thời gian, theo dõi, đánh giá nguy cơ, giảm liều.",["CDC"]],
+ ["Quy đổi liều và giảm liều","Tính MME, đổi opioid, phác đồ giảm liều chậm; không ngừng đột ngột.",["CDC"]],
+ ["Rối loạn sử dụng opioid","Sàng lọc, buprenorphine; quy định kê đơn thuốc gây nghiện hiện hành tại VN (tự tra văn bản mới nhất).",["CDC"]],
+ ["Ca opioid","Bệnh nhân đau lưng đang dùng opioid liều cao: kế hoạch 3 tháng.",[]]]],
+["Thuốc khác và đường truyền","Biết chỗ đứng của ketamine, lidocaine, steroid, botulinum, cannabinoid.",[
+ ["Ketamine và lidocaine tĩnh mạch","Chỉ định, liều, bằng chứng; NICE khuyến cáo không khởi trị ketamine cho đau mạn nguyên phát.",["BENZON","NICE"]],
+ ["Corticosteroid","Toàn thân và tại chỗ; nguy cơ khi tiêm lặp lại.",["BENZON"]],
+ ["Botulinum toxin","Đau thần kinh khu trú (khuyến cáo yếu bậc 3), migraine mạn.",["NEUP25"]],
+ ["Cannabinoid","Bằng chứng không nhất quán; NeuPSIG khuyến cáo yếu không dùng.",["NEUP25"]],
+ ["NICE NG193 mục thuốc","Đọc danh sách thuốc không nên khởi trị cho đau mạn nguyên phát và phản biện của BPS.",["NICE"]],
+ ["So sánh guideline","Bảng: NICE và NeuPSIG khác nhau ở đâu và vì sao (đối tượng khác nhau).",[]]]],
+["Điều trị không dùng thuốc","Thiết kế phác đồ đa mô thức.",[
+ ["Vận động trị liệu","Benzon: phục hồi chức năng cho bệnh nhân đau mạn; liều tập.",["BENZON","NICE"]],
+ ["Tâm lý trị liệu","CBT, ACT, chương trình quản lý đau.",["BENZON","NICE"]],
+ ["Giấc ngủ và tâm trạng","Mối liên quan hai chiều; khi nào chuyển chuyên khoa tâm thần.",["BENZON"]],
+ ["Liệu pháp bổ trợ","Châm cứu, TENS; bằng chứng và khuyến cáo NICE.",["BENZON","NICE"]],
+ ["Tự quản lý","Benzon: giáo dục bệnh nhân và tự quản lý; soạn tờ hướng dẫn tiếng Việt.",["BENZON"]],
+ ["Kiểm tra giai đoạn 2","Xây phác đồ đa mô thức cho 2 ca và tự chấm theo guideline.",[]]]],
+["Đau cột sống thắt lưng và cổ","Phân biệt các nguồn đau cột sống để chọn can thiệp phù hợp.",[
+ ["Loạt bài Lancet 2018","Foster 2018: tổng hợp guideline và điều trị quá mức.",["LBP"]],
+ ["Đau trục và đau rễ","Phân biệt bằng lâm sàng; giá trị hạn chế của MRI.",["BENZON","LBP"]],
+ ["Facet, khớp cùng chậu, đĩa đệm","Đặc điểm lâm sàng; vì sao không chẩn đoán được chỉ bằng khám.",["BENZON","LFACET"]],
+ ["Hẹp ống sống và đau sau mổ cột sống","Đau mạn sau phẫu thuật cột sống: cách tiếp cận.",["BENZON"]],
+ ["Hướng dẫn Bộ Y tế","Bài đau thắt lưng, đau thần kinh tọa, thoái hóa cột sống cổ.",["BYT361"]],
+ ["Lưu đồ cột sống","Vẽ lưu đồ từ khám đến chỉ định can thiệp.",[]]]],
+["Đau thần kinh và CRPS","Chẩn đoán và điều trị PHN, DPN, CRPS.",[
+ ["Đau sau zona và đau đa dây thần kinh","Áp dụng NeuPSIG cho từng bệnh.",["NEUP25","BENZON"]],
+ ["Đau thần kinh trung ương","Sau đột quỵ, tủy sống, xơ cứng rải rác.",["BENZON"]],
+ ["Đau thần kinh sau phẫu thuật","Liên hệ trực tiếp với thực hành GMHS: phòng ngừa và nhận diện sớm.",["BENZON","ICD11"]],
+ ["CRPS: chẩn đoán","Tiêu chuẩn Budapest và điều chỉnh Valencia.",["CRPS"]],
+ ["CRPS: điều trị","Phục hồi chức năng, thuốc, block giao cảm, SCS.",["BENZON"]],
+ ["Ca CRPS","Viết ca CRPS chi trên sau gãy xương: chẩn đoán và kế hoạch.",[]]]],
+["Nociplastic, đau đầu và đau nội tạng","Nhận diện các hội chứng mà can thiệp ít vai trò.",[
+ ["Đau cơ xơ hóa","Chẩn đoán và điều trị; vì sao can thiệp ít hiệu quả.",["FITZ","BENZON"]],
+ ["Đau đầu mạn","Migraine mạn, đau đầu do cổ, đau dây thần kinh chẩm.",["BENZON"]],
+ ["Đau vùng mặt","Đau dây V, đau mặt dai dẳng.",["BENZON"]],
+ ["Đau nội tạng và vùng chậu","Cơ chế đau nội tạng, đau vùng chậu mạn.",["BENZON"]],
+ ["Đau ở người già và phụ nữ có thai","Benzon: các chương quần thể đặc biệt.",["BENZON"]],
+ ["Bảng chỉ định","Bảng: hội chứng nào có can thiệp có bằng chứng, hội chứng nào không.",[]]]],
+["Đau do ung thư","Điều trị đau ung thư theo WHO/ESMO và nhận diện ca cần can thiệp.",[
+ ["WHO 2018: nguyên tắc","Mục tiêu điều trị và các nguyên tắc hướng dẫn.",["WHO"]],
+ ["Chuẩn độ opioid và đau đột xuất","Morphine uống, liều cứu hộ, đổi đường dùng.",["WHO","ESMO"]],
+ ["Đau xương và thuốc hỗ trợ","Bisphosphonate, xạ trị, corticosteroid.",["WHO"]],
+ ["Can thiệp trong đau ung thư","Celiac plexus trong ung thư tụy, intrathecal, cordotomy theo ESMO.",["ESMO"]],
+ ["Phối hợp chăm sóc giảm nhẹ","Khi nào chuyển, cách phối hợp.",["WHO"]],
+ ["Kiểm tra giai đoạn 3","Tự làm 20 câu hỏi và 2 ca tích hợp.",[]]]],
+["An toàn trong can thiệp","Thuộc các nguyên tắc an toàn trước khi chạm kim.",[
+ ["Chống đông: phân tầng nguy cơ","Narouze 2018: thủ thuật nguy cơ thấp, trung bình, cao.",["COAG"]],
+ ["Chống đông: thời gian ngừng thuốc","Bảng ngừng và dùng lại thuốc; cài ứng dụng ASRA Coags.",["COAG"]],
+ ["Biến chứng thần kinh sau tiêm NMC","Rathmell 2015: 20 khuyến cáo; steroid hạt và không hạt.",["ESI"]],
+ ["Chất cản quang và an toàn bức xạ","Dị ứng cản quang, liều chiếu, che chắn, nguyên tắc ALARA.",["BENZON"]],
+ ["Vô khuẩn và cấp cứu","Nhiễm khuẩn sau thủ thuật; xử trí tiêm nội mạch, LAST, tụt huyết áp.",["BENZON"]],
+ ["Checklist an toàn","Soạn checklist trước thủ thuật cho phòng can thiệp.",[]]]],
+["Hình ảnh học trong can thiệp","Đọc được các góc chiếu C-arm và nối với sonoanatomy đã biết.",[
+ ["Nguyên lý C-arm","Các góc chiếu chuẩn AP, chếch, nghiêng; nhận diện mốc cột sống.",["SIS","BENZON"]],
+ ["Siêu âm trong đau mạn","Narouze phần I: ôn nhanh, tập trung khác biệt so với gây tê vùng.",["NAROUZE"]],
+ ["Sonoanatomy cột sống","Narouze chương Spine Sonoanatomy for Pain Physicians.",["NAROUZE","NYSORA"]],
+ ["Siêu âm hay C-arm","Ưu nhược điểm từng thủ thuật; khi nào bắt buộc C-arm.",["NAROUZE","ESI"]],
+ ["Hình ảnh trên xác hoặc mô hình","Tìm atlas hình C-arm, tự đặt tên từng cấu trúc.",["SIS"]],
+ ["Bảng chọn phương tiện","Bảng: thủ thuật nào dùng siêu âm, thủ thuật nào dùng C-arm.",[]]]],
+["Facet thắt lưng: chẩn đoán","Chỉ định và thực hiện block nhánh trong đúng chuẩn.",[
+ ["Đồng thuận Cohen 2020 (phần 1)","Câu hỏi 1–8: chọn bệnh nhân, hình ảnh, điều trị bảo tồn trước.",["LFACET"]],
+ ["Đồng thuận Cohen 2020 (phần 2)","Câu hỏi 9–17: ngưỡng dương tính, số lần block, an thần, thể tích.",["LFACET"]],
+ ["Giải phẫu nhánh trong","Vị trí nhánh trong L1–L4 và nhánh lưng L5.",["SIS","BENZON"]],
+ ["Kỹ thuật MBB dưới C-arm","Đọc chuẩn SIS; đánh giá kết quả block.",["SIS"]],
+ ["Lumbar facet dưới siêu âm","Narouze chương lumbar facet nerve block và intra-articular injection.",["NAROUZE"]],
+ ["So sánh với ASIPP","Ghi lại chỗ ASIPP 2020 và Cohen 2020 khác nhau.",["ASIPP"]]]],
+["Đốt sóng cao tần (RF)","Hiểu vật lý RF và thực hiện RFA thắt lưng.",[
+ ["Vật lý RF thường","Nhiệt độ, thời gian, kích thước tổn thương, đầu điện cực.",["BENZON"]],
+ ["RF xung và RF làm lạnh","Cơ chế còn tranh cãi; bằng chứng hiện có.",["BENZON"]],
+ ["Kỹ thuật RFA thắt lưng","Hướng điện cực song song với dây thần kinh; kích thích cảm giác, vận động.",["SIS","LFACET"]],
+ ["Hiệu quả và lặp lại RFA","Bằng chứng, thời gian tác dụng, khi nào làm lại.",["LFACET"]],
+ ["Biến chứng RF","Bỏng, viêm dây thần kinh, đau tăng sau thủ thuật.",["LFACET","BENZON"]],
+ ["Quy trình RFA","Viết quy trình kỹ thuật RFA thắt lưng cho khoa.",[]]]],
+["Facet cổ và đau đầu do cổ","Thực hiện an toàn các thủ thuật vùng cổ.",[
+ ["Đồng thuận Hurley 2022 (phần 1)","Chọn bệnh nhân, giá trị lâm sàng và hình ảnh.",["CFACET"]],
+ ["Đồng thuận Hurley 2022 (phần 2)","Block chẩn đoán, RFA, an toàn, chống đông.",["CFACET"]],
+ ["Thần kinh chẩm thứ ba và nhánh trong cổ","Narouze chương TON và cervical medial branch dưới siêu âm.",["NAROUZE"]],
+ ["Block thần kinh chẩm lớn","Narouze chương greater occipital nerve; đau dây thần kinh chẩm.",["NAROUZE"]],
+ ["An toàn động mạch đốt sống","Vị trí mạch máu và cách phòng tiêm nội mạch.",["ESI","CFACET"]],
+ ["Ca đau cổ","Ca đau cổ kèm đau đầu: lộ trình chẩn đoán và can thiệp.",[]]]],
+["Tiêm ngoài màng cứng","Chọn đường tiêm và bệnh nhân cho đau rễ.",[
+ ["Bằng chứng tiêm NMC","Hiệu quả ngắn hạn trong đau rễ; ít hiệu quả trong đau trục.",["BENZON","LBP"]],
+ ["Đường liên bản sống","Kỹ thuật, mức tiêm cổ C7–T1, góc chiếu bên hoặc chếch đối bên.",["ESI","SIS"]],
+ ["Đường qua lỗ liên hợp","Kỹ thuật, tiêm cản quang thời gian thực, steroid không hạt.",["ESI","SIS"]],
+ ["Đường xương cùng","Narouze chương caudal epidural dưới siêu âm.",["NAROUZE"]],
+ ["Chọn steroid và liều","Dexamethasone so với steroid hạt; giới hạn số lần tiêm mỗi năm.",["ESI"]],
+ ["Ca đau rễ","Ca đau rễ L5: chọn đường tiêm và giải thích lý do.",[]]]],
+["Khớp cùng chậu và khớp ngoại vi","Can thiệp khớp cùng chậu, gối, vai, háng.",[
+ ["Khớp cùng chậu: chẩn đoán","Nghiệm pháp khám, block chẩn đoán.",["BENZON","SIS"]],
+ ["Khớp cùng chậu: tiêm và RF","Narouze chương SIJ; RF nhánh bên.",["NAROUZE"]],
+ ["Đau khớp gối","Block và RF thần kinh gối.",["NAROUZE","BENZON"]],
+ ["Đau vai","Block thần kinh trên vai, tiêm khớp và túi hoạt dịch.",["NAROUZE"]],
+ ["Khớp háng","Narouze chương intra-articular hip.",["NAROUZE"]],
+ ["Bảng khớp","Bảng: chỉ định, mốc siêu âm, thuốc, bằng chứng cho từng khớp.",[]]]],
+["Block hệ giao cảm","Chỉ định và kỹ thuật các block giao cảm.",[
+ ["Hạch sao","Narouze chương cervical sympathetic block; CRPS chi trên.",["NAROUZE"]],
+ ["Giao cảm thắt lưng","CRPS chi dưới, thiếu máu chi.",["BENZON"]],
+ ["Đám rối tạng và thần kinh tạng","Narouze chương celiac plexus; hủy thần kinh trong ung thư tụy.",["NAROUZE","ESMO"]],
+ ["Đám rối hạ vị","Đau vùng chậu do ung thư.",["NAROUZE"]],
+ ["Hạch Walther (impar)","Narouze chương ganglion impar; đau vùng tầng sinh môn.",["NAROUZE"]],
+ ["Bảng giao cảm","Bảng: block nào, chỉ định gì, nguy cơ chảy máu theo ASRA.",["COAG"]]]],
+["Điều biến thần kinh và thủ thuật nâng cao","Hiểu chỉ định để chuyển tuyến đúng lúc.",[
+ ["Kích thích tủy sống","Cơ chế, chỉ định (đau sau mổ cột sống, CRPS), thử nghiệm.",["BENZON"]],
+ ["DRG và kích thích thần kinh ngoại vi","Narouze chương PNS lead placement.",["NAROUZE"]],
+ ["Bơm tủy sống","Chỉ định trong đau ung thư và đau co cứng.",["BENZON","ESMO"]],
+ ["RF xung hạch rễ sau","Chỉ định, bằng chứng còn hạn chế.",["BENZON"]],
+ ["Tiêm điểm đau cơ","Kỹ thuật, bằng chứng; NICE không khuyến cáo tiêm corticosteroid điểm đau cho đau mạn nguyên phát.",["NICE","BENZON"]],
+ ["Kiểm tra giai đoạn 4","Bài kiểm tra 30 câu về an toàn, chỉ định và kỹ thuật.",[]]]],
+["Xây phòng khám đau","Biến kiến thức thành quy trình vận hành.",[
+ ["Quy trình tiếp nhận","Luồng bệnh nhân, sàng lọc, hẹn tái khám.",["IASPBOOK"]],
+ ["Hồ sơ và đo lường kết quả","Bộ thang đo chuẩn mỗi lần khám; theo dõi kết quả theo thời gian.",["BENZON"]],
+ ["Đồng thuận thủ thuật","Mẫu giấy cam kết: lợi ích, nguy cơ, phương án thay thế.",[]],
+ ["Phạm vi hành nghề","Xác nhận danh mục kỹ thuật và chứng chỉ cần có với bệnh viện và Sở Y tế.",[]],
+ ["Kết nối chuyên môn","Tìm hiểu hoạt động của Hội Nghiên cứu Đau VN và các trung tâm đau trong nước.",["VASP"]],
+ ["Bản thảo quy trình","Viết quy trình phòng khám đau 2–3 trang.",[]]]],
+["Ca lâm sàng tích hợp 1","Áp dụng toàn bộ kiến thức trên ca phức tạp.",[
+ ["Đau thắt lưng mạn hỗn hợp","Từ phân loại đến kế hoạch đa mô thức và can thiệp.",["LBP","LFACET"]],
+ ["Đau rễ kéo dài sau mổ","Tiêm NMC, RF xung, chuyển SCS.",["ESI","BENZON"]],
+ ["CRPS không đáp ứng","Block giao cảm, phục hồi chức năng, khi nào chuyển tuyến.",["CRPS"]],
+ ["Ung thư tụy","Chuẩn độ opioid và hủy đám rối tạng.",["WHO","ESMO"]],
+ ["Bệnh nhân đang dùng chống đông","Lên kế hoạch thủ thuật theo nguy cơ chảy máu.",["COAG"]],
+ ["Trình bày ca","Soạn một ca để trình bày trong sinh hoạt khoa.",[]]]],
+["Ca lâm sàng tích hợp 2","Các ca ít can thiệp và cập nhật y văn.",[
+ ["Đau cổ và đau đầu","Phối hợp facet cổ, GON block và thuốc.",["CFACET"]],
+ ["Đau sau zona","Thuốc bậc 1, thuốc bôi, can thiệp.",["NEUP25"]],
+ ["Đau cơ xơ hóa","Kế hoạch không can thiệp, giải thích cho bệnh nhân.",["FITZ","KOSEK"]],
+ ["Opioid liều cao","Kế hoạch giảm liều có sự đồng ý của bệnh nhân.",["CDC"]],
+ ["Cập nhật y văn","Thiết lập cảnh báo PubMed cho đau mạn và can thiệp.",["PUBMED"]],
+ ["Đọc phê bình","Đọc 1 RCT về RFA và đánh giá chất lượng.",["PUBMED"]]]],
+["Tổng ôn và kế hoạch tiếp theo","Tự đánh giá cuối khóa và lập kế hoạch thực hành có giám sát.",[
+ ["Tổng ôn giai đoạn 1–2","Làm lại thẻ ghi nhớ khó nhất.",[]],
+ ["Tổng ôn giai đoạn 3","Làm lại các ca hội chứng.",[]],
+ ["Tổng ôn giai đoạn 4","Làm lại bảng chỉ định và checklist an toàn.",["COAG","ESI"]],
+ ["Tự đánh giá cuối","Đánh giá lại theo khung IASP, so với tuần 4.",["IASPCUR"]],
+ ["Kế hoạch thực hành","Workshop trên xác, kiến tập tại trung tâm đau, chứng chỉ quốc tế nếu muốn đi tiếp.",["VASP"]],
+ ["Kế hoạch 6 tháng tiếp theo","Viết kế hoạch học và thực hành tiếp.",[]]]]
+];
+
+const DOW = ["T2","T3","T4","T5","T6","T7","CN"];
+const KEY = "dauman-progress-v1", SKEY = "dauman-start-v1";
+let done = {};
+try{ done = JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ done = {}; }
+let startStr = "2026-11-02";
+try{ startStr = localStorage.getItem(SKEY) || startStr; }catch(e){}
+const startInput = document.getElementById("start");
+startInput.value = startStr;
+
+function fmt(d){ return d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit"}); }
+function dayDate(w,d){ const s=new Date(startStr+"T00:00:00"); s.setDate(s.getDate()+w*7+d); return s; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(done)); }catch(e){} }
+
+function chips(keys){ return keys.map(k=>`<button class="chip" type="button" data-src="${k}">${k}</button>`).join(""); }
+
+function render(){
+  const panel = document.getElementById("panel-plan");
+  panel.innerHTML = PHASES.map(ph=>{
+    let weeks = "";
+    for(let i=ph.from;i<=ph.to;i++){
+      const [title,goal,days] = W[i-1], wi=i-1;
+      const items = days.concat([["Ôn tập tuần","Làm lại toàn bộ thẻ trong tuần, 10 câu hỏi, viết một ca mẫu nửa trang.",[]]]);
+      const cnt = items.filter((_,d)=>done[`${wi}-${d}`]).length;
+      const lis = items.map((it,d)=>{
+        const id=`${wi}-${d}`, on=!!done[id];
+        return `<li class="${on?"done":""}${d===6?" review":""}"><input type="checkbox" id="c${id}" data-id="${id}" ${on?"checked":""} aria-label="${it[0]}"><span class="dlabel">${DOW[d]} ${fmt(dayDate(wi,d))}</span><div class="dtxt"><b>${it[0]}</b><span class="rd">${it[1]}</span>${it[2].length?`<span class="src">${chips(it[2])}</span>`:""}</div></li>`;
+      }).join("");
+      weeks += `<details class="week" id="w${i}"><summary><span class="wnum">T${String(i).padStart(2,"0")}</span><span class="wtitle">${title}<small>${fmt(dayDate(wi,0))} – ${fmt(dayDate(wi,6))}</small></span><span class="wcount ${cnt===7?"full":""}" id="cnt${wi}">${cnt}/7</span></summary><div class="wbody"><p class="goal">${goal}</p><ol class="days">${lis}</ol></div></details>`;
+    }
+    return `<div class="phase"><div class="phase-head"><h2>${ph.n}</h2><span class="wk">${ph.w}</span><p>${ph.p}</p></div>${weeks}</div>`;
+  }).join("");
+  updateBar();
+}
+function updateBar(){
+  const n = Object.values(done).filter(Boolean).length;
+  document.getElementById("pct").textContent = `${n} / 182 buổi`;
+  document.getElementById("barfill").style.width = (n/182*100).toFixed(1)+"%";
+}
+document.getElementById("panel-plan").addEventListener("change",e=>{
+  const id=e.target.dataset.id; if(!id) return;
+  done[id]=e.target.checked; if(!e.target.checked) delete done[id]; save();
+  e.target.closest("li").classList.toggle("done",e.target.checked);
+  const wi=id.split("-")[0]; const c=[0,1,2,3,4,5,6].filter(d=>done[`${wi}-${d}`]).length;
+  const el=document.getElementById("cnt"+wi); el.textContent=`${c}/7`; el.classList.toggle("full",c===7);
+  updateBar();
+});
+startInput.addEventListener("change",()=>{ if(!startInput.value) return; startStr=startInput.value; try{localStorage.setItem(SKEY,startStr);}catch(e){} const open=[...document.querySelectorAll("details.week[open]")].map(d=>d.id); render(); open.forEach(id=>{const d=document.getElementById(id); if(d) d.open=true;}); });
+document.getElementById("jump").addEventListener("click",()=>{
+  const diff=Math.floor((new Date()-new Date(startStr+"T00:00:00"))/864e5);
+  const wk=Math.min(26,Math.max(1,Math.floor(diff/7)+1));
+  showTab("plan"); const d=document.getElementById("w"+wk); d.open=true; d.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+// sources
+const LV = {sr:"Tổng quan hệ thống",gl:"Guideline",cs:"Đồng thuận",tb:"Sách / tài nguyên"};
+const order = ["sr","gl","cs","tb"];
+document.getElementById("panel-src").innerHTML =
+ `<div class="note">Mức bằng chứng được gắn nhãn để phân biệt: <b>tổng quan hệ thống</b> là bằng chứng trực tiếp tổng hợp từ RCT; <b>guideline</b> có quy trình xây dựng chính thức; <b>đồng thuận</b> phần lớn dựa trên ý kiến chuyên gia vì thiếu RCT, đặc biệt trong lĩnh vực can thiệp. Hướng dẫn chống đông và an toàn tiêm NMC thuộc nhóm đồng thuận, không có phân độ bằng chứng.</div>` +
+ order.map(l=>{
+   const items = Object.entries(SRC).filter(([k,v])=>v.lvl===l);
+   return `<div class="srcgroup"><h2>${LV[l]}</h2>${items.map(([k,v])=>`<div class="srcitem" id="s-${k}"><span class="k">${k}</span><span class="t"><span class="lvl ${v.lvl}">${LV[v.lvl]}</span>${v.t}</span><span class="n">${v.n}</span>${v.doi?`<a class="doi" href="https://doi.org/${v.doi}" target="_blank" rel="noopener">doi:${v.doi}</a>`:`<a class="doi" href="${v.url}" target="_blank" rel="noopener">${v.url.replace("https://","")}</a>`}</div>`).join("")}</div>`;
+ }).join("");
+
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c) return;
+  e.preventDefault(); showTab("src");
+  const el=document.getElementById("s-"+c.dataset.src); if(!el) return;
+  el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1600);
+});
+function showTab(t){
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+  ["plan","src","how"].forEach(p=>document.getElementById("panel-"+p).hidden = p!==t);
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+render();
+</script>
