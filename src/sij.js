@@ -207,7 +207,7 @@ SIJ.sort((a,b)=>a.id-b.id);
   document.head.appendChild(st);
 })();
 
-let sijCh=0, sijMode="sum", sijKnown=LS.get("pp-sij-known",{}), sijScores=LS.get("pp-sij-scores",{});
+let sijDxOn=false, sijCh=0, sijMode="sum", sijKnown=LS.get("pp-sij-known",{}), sijScores=LS.get("pp-sij-scores",{});
 let sijCi=0, sijFlip=false, sijOnlyNew=false;
 let sijQ={order:[],pos:0,right:0,ord:null,picked:null,wrong:[],redo:false};
 
@@ -216,7 +216,7 @@ function sijStart(idxs,redo){sijQ={order:sijShuffle(idxs),pos:0,right:0,ord:null
 function sijReset(){sijCi=0;sijFlip=false;const n=SIJ[sijCh].quiz.length;sijStart(Array.from({length:n},(_,i)=>i),false);}
 sijReset();
 
-function sijChips(){return SIJ.map((c,i)=>`<button data-sijch="${i}" class="${sijCh===i?"on":""}">Chương ${c.id}</button>`).join("");}
+function sijChips(){return `<button data-sijdxopen="1" class="${sijDxOn?"on":""}">🩺 Chẩn đoán</button>`+SIJ.map((c,i)=>`<button data-sijch="${i}" class="${!sijDxOn&&sijCh===i?"on":""}">Chương ${c.id}</button>`).join("");}
 
 function sijVideo(c){
   const L=Array.isArray(c.yt)?c.yt:(c.yt?[c.yt]:[]);
@@ -225,6 +225,7 @@ function sijVideo(c){
 }
 
 function sijView(){
+  if(sijDxOn) return dxView();
   const c=SIJ[sijCh];
   const head=`<div class="card"><h2>${esc(c.t)}</h2><div class="body">${sijVideo(c)}
     <div class="sijtabs">${[["sum","Tóm tắt"],["card","Thẻ ôn"],["quiz","Kiểm tra"]].map(([k,l])=>`<button data-sijmode="${k}" aria-pressed="${sijMode===k}">${l}</button>`).join("")}</div></div></div>`;
@@ -269,7 +270,7 @@ function sijQuizView(c){
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-sijch],[data-sijmode],[data-sijact],[data-sijknow],[data-sijpick]"); if(!b) return;
   const c=SIJ[sijCh];
-  if(b.dataset.sijch!==undefined){sijCh=Number(b.dataset.sijch);sijReset();return render();}
+  if(b.dataset.sijch!==undefined){sijDxOn=false;sijCh=Number(b.dataset.sijch);sijReset();return render();}
   if(b.dataset.sijmode){sijMode=b.dataset.sijmode;return render();}
   if(b.dataset.sijknow!==undefined){const k=`${c.id}-${b.dataset.i}`; if(b.dataset.sijknow==="1") sijKnown[k]=1; else delete sijKnown[k]; LS.set("pp-sij-known",sijKnown); sijFlip=false; if(!(sijOnlyNew&&b.dataset.sijknow==="1")) sijCi++; return render();}
   if(b.dataset.sijpick!==undefined){
@@ -291,3 +292,4 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.sijact==="flip"){e.preventDefault();e.target.click();}});
 document.addEventListener("change",e=>{if(e.target.id==="sijonlynew"){sijOnlyNew=e.target.checked;sijCi=0;sijFlip=false;render();}});
+/*SIJDX*/

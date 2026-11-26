@@ -32,7 +32,7 @@ t = t.replace('/*LESSONS*/', rd('lessons.js') + '\n' + rd('week2.js'), 1)
 
 import glob as _g
 _extra = sorted(_g.glob(os.path.join(D, 'sij[0-9]*.js')), key=lambda p: int(re.match(r'sij(\d+)', os.path.basename(p)).group(1)))
-t = t.replace('/*SIJ*/', rd('sij.js').replace('/*SIJMORE*/', chr(10).join(rd(os.path.basename(p)) for p in _extra)), 1)
+t = t.replace('/*SIJ*/', rd('sij.js').replace('/*SIJMORE*/', chr(10).join(rd(os.path.basename(p)) for p in _extra)).replace('/*SIJDX*/', rd('sijdx_core.js') + chr(10) + rd('sijdx_ui.js')), 1)
 
 # 3) Kiểm tra cú pháp JS nếu có Node
 m = re.search(r'<script>(.*)</script>', t, re.S)
