@@ -1,0 +1,58 @@
+/* Chương 10 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
+SIJ.push(
+{ id:10, t:"Chương 10 · Kỹ thuật hình ảnh dẫn đường để tiêm khớp cùng–chậu", yt:"", min:16,
+ pts:[
+  "Tiêm SIJ để chẩn đoán hoặc điều trị (kể cả y học tái tạo) dưới ba phương tiện: CT, huỳnh quang, siêu âm.",
+  "Chống chỉ định tuyệt đối: u tại chỗ, nhiễm trùng. Tương đối: rối loạn đông máu, thai kỳ (tùy loại hình ảnh), nhiễm trùng toàn thân, khớp nhiễm khuẩn, viêm xương tủy.",
+  "CT (Pulisetti, 71 mũi tiêm): chính xác nhất để xác nhận tiêm chẩn đoán. Nằm sấp, CT một lát cắt sơ bộ, vô trùng, kỹ thuật liều thấp/xung, điểm vào ~1 cm trên đầu dưới khe khớp, kỹ thuật tự do; xác nhận khe khớp bằng ≥1–3 mL cản quang không ion (ioversol).",
+  "Biến chứng CT: phản ứng phế vị thoáng qua (Kennedy: >8.000 mũi tiêm huỳnh quang); vô trùng thì hạn chế ngoài phơi nhiễm tia X.",
+  "Huỳnh quang: môi trường vô trùng (phòng khám hoặc trung tâm ngoại trú); nằm sấp trên bàn xuyên tia, gối dưới bụng dưới; C-arm chếch bên đối diện 10–20°; dùng cản quang để vẽ khe khớp, hoặc xác nhận AP/chếch/nghiêng không cản quang.",
+  "Thuốc dưới huỳnh quang: trung bình 4–6 mL, một nửa trong khớp, một nửa quanh khớp; mục tiêu thấm khớp và dây chằng gian cốt. Khuba: không cần góc chếch, chỉ AP vẫn vào được phần dưới khớp sau; Chauhan (RCT): AP cho thời gian soi ngắn hơn.",
+  "Biến chứng huỳnh quang: thường không có (Navani) hoặc đau tăng 15–30%; Maugars: đau tăng thoáng qua, tê đáy chậu thoáng qua, đau thần kinh tọa tạm thời; hiếm viêm khớp nhiễm khuẩn (nguy cơ: đái tháo đường, vật liệu nhân tạo, nhiễm trùng tại chỗ, lớn tuổi, ức chế miễn dịch); hình nghiêng tránh tiêm nhầm tạng chậu.",
+  "Siêu âm (Hartung): nằm sấp, gối dưới khung chậu; bàn chân xoay trong và lật vào; đầu dò thẳng 2,5–8,0 MHz, trường nhìn 44 mm; khe SIJ = khe giảm âm giữa hai đường tăng âm của xương cùng và xương chậu.",
+  "Saunders: cải tiến nhắm dây chằng gian cốt sau (ở mức S1–S2, nơi nên tiêm điều trị). Kim từ trong ra ngoài (Hình 10.3).",
+  "Siêu âm – độ chính xác/biến chứng: nhiễm trùng nếu không vô trùng; biến chứng nặng (kim vào khoang sau chậu) hiếm; ít vào đúng trong khớp hơn nhưng tiêm quanh khớp vẫn hiệu quả (Hartung); thời gian dài hơn (giảm theo kinh nghiệm); nhìn thấy thuốc lan ngoài khớp để chỉnh kim.",
+  "Kết luận: kỹ thuật tiêm thay đổi theo đào tạo, kinh nghiệm. Chế phẩm tái tạo (từ máu tự thân): nguy cơ giống phản ứng truyền máu, dị ứng/miễn dịch; không tương tác thuốc; nguy cơ chính là phá vỡ vô trùng hoặc tiêm nhầm cấu trúc."
+ ],
+ cards:[
+  ["Chống chỉ định tuyệt đối của tiêm SIJ?","U tại chỗ và nhiễm trùng.","SIJ"],
+  ["Chống chỉ định tương đối?","Rối loạn đông máu, thai kỳ (tùy loại hình ảnh), nhiễm trùng toàn thân, khớp nhiễm khuẩn, viêm xương tủy.","SIJ"],
+  ["Phương tiện nào chính xác nhất để xác nhận tiêm chẩn đoán?","CT (Pulisetti, 71 mũi tiêm).","SIJ"],
+  ["Các bước tiêm dưới CT?","Nằm sấp; CT một lát cắt sơ bộ; vô trùng; liều thấp/xung; đánh dấu điểm vào ~1 cm trên đầu dưới khe khớp; kỹ thuật tự do; cản quang 1–3 mL để xác nhận; rồi tiêm thuốc.","SIJ"],
+  ["Cản quang dùng trong tiêm CT?","Ít nhất 1–3 mL cản quang không ion (ioversol).","SIJ"],
+  ["Biến chứng thường gặp của tiêm dưới CT?","Phản ứng phế vị thoáng qua; phơi nhiễm tia X; vô trùng thì hạn chế biến chứng khác.","SIJ"],
+  ["Tư thế và thiết bị tiêm dưới huỳnh quang?","Nằm sấp, bàn xuyên tia, gối dưới bụng dưới; C-arm chếch bên đối diện 10–20°.","SIJ"],
+  ["Cách xác nhận kim dưới huỳnh quang?","Cản quang vẽ khe khớp; hoặc xác nhận AP, chếch, nghiêng không dùng cản quang.","SIJ"],
+  ["Thể tích thuốc tiêm dưới huỳnh quang?","Trung bình 4–6 mL: một nửa trong khớp, một nửa quanh khớp; thấm khớp và dây chằng gian cốt.","SIJ"],
+  ["Khuba và Chauhan phát hiện gì?","Khuba: không cần góc chếch, chỉ AP vẫn vào được phần dưới khớp sau. Chauhan (RCT): AP cho thời gian soi ngắn hơn.","SIJ"],
+  ["Biến chứng tiêm dưới huỳnh quang?","Thường không có (Navani) hoặc đau tăng 15–30%; Maugars: tê đáy chậu thoáng qua, đau thần kinh tọa tạm thời.","SIJ"],
+  ["Yếu tố nguy cơ viêm khớp nhiễm khuẩn sau tiêm?","Đái tháo đường, vật liệu nhân tạo, nhiễm trùng tại chỗ, tuổi cao, thuốc ức chế miễn dịch.","SIJ"],
+  ["Vai trò của hình nghiêng khi tiêm huỳnh quang?","Tránh tiêm nhầm vào tạng chậu.","SIJ"],
+  ["Tư thế siêu âm theo Hartung?","Nằm sấp, gối dưới khung chậu; bàn chân xoay trong và lật vào để dễ tiếp cận khớp.","SIJ"],
+  ["Đầu dò và thông số siêu âm của Hartung?","Đầu dò thẳng 2,5–8,0 MHz; trường nhìn 44 mm.","SIJ"],
+  ["Hình ảnh khe SIJ trên siêu âm?","Khe giảm âm giữa hai đường tăng âm của xương cùng và xương chậu.","SIJ"],
+  ["Cải tiến Saunders?","Nhắm dây chằng gian cốt sau và quanh nó, ở mức S1–S2, nơi nên tiêm điều trị.","SIJ"],
+  ["Nhược điểm của siêu âm?","Ít vào đúng trong khớp hơn; thời gian dài hơn (giảm theo kinh nghiệm).","SIJ"],
+  ["Ưu điểm của siêu âm?","Thấy thuốc lan ngoài khớp để chỉnh kim; tiêm quanh khớp vẫn hiệu quả (Hartung); không tia X.","SIJ"],
+  ["Biến chứng nặng hiếm của siêu âm?","Kim vào khoang sau chậu (retropelvic).","SIJ"],
+  ["Nguy cơ của chế phẩm tái tạo tự thân?","Giống phản ứng truyền máu, dị ứng hoặc miễn dịch; không tương tác thuốc; nguy cơ chính là phá vỡ vô trùng hoặc tiêm nhầm cấu trúc.","SIJ"]
+ ],
+ quiz:[
+  ["Chống chỉ định tuyệt đối của tiêm SIJ?",["U tại chỗ và nhiễm trùng","Rối loạn đông máu","Thai kỳ","Béo phì"],0,"Rối loạn đông máu, thai kỳ là chống chỉ định tương đối.","SIJ"],
+  ["Phương tiện chính xác nhất để xác nhận tiêm chẩn đoán?",["CT","Siêu âm","X-quang thường","Không cần"],0,"Pulisetti, 71 mũi tiêm dưới CT.","SIJ"],
+  ["Điểm vào dưới CT?",["~1 cm trên đầu dưới khe khớp","Mỏm gai L5","Mấu chuyển lớn","Xương mu"],0,"Kỹ thuật tự do; cản quang không ion 1–3 mL.","SIJ"],
+  ["Biến chứng thường gặp của tiêm dưới CT?",["Phản ứng phế vị thoáng qua","Liệt","Hôn mê","Suy thận"],0,"Cũng có phơi nhiễm tia X.","SIJ"],
+  ["Góc C-arm trong tiêm huỳnh quang?",["Chếch bên đối diện 10–20°","Nghiêng 90°","Chếch cùng bên 45°","Không xoay"],0,"Hoặc chỉ cần hình thẳng (Khuba).","SIJ"],
+  ["Thể tích thuốc tiêm huỳnh quang?",["4–6 mL, nửa trong nửa quanh khớp","20 mL","0,5 mL","1 mL"],0,"Mục tiêu thấm khớp và dây chằng gian cốt.","SIJ"],
+  ["Chauhan (RCT) phát hiện?",["Hình AP cho thời gian soi ngắn hơn","Phải luôn chếch","Siêu âm hơn","CT hơn"],0,"Khuba: không cần góc chếch.","SIJ"],
+  ["Biến chứng tiêm huỳnh quang theo Navani?",["Thường không có hoặc đau tăng 15–30%","Tử vong 5%","Liệt 30%","Dị ứng 90%"],0,"Maugars: tê đáy chậu thoáng qua, đau thần kinh tọa tạm thời.","SIJ"],
+  ["Yếu tố nguy cơ viêm khớp nhiễm khuẩn sau tiêm?",["Đái tháo đường, ức chế miễn dịch, vật liệu nhân tạo","Tuổi trẻ","Nữ giới","Thể thao"],0,"Còn có nhiễm trùng tại chỗ, tuổi cao.","SIJ"],
+  ["Hình nghiêng giúp gì?",["Tránh tiêm nhầm tạng chậu","Chọn thuốc","Đo xương","Giảm đau"],0,"Dùng khi tiêm huỳnh quang.","SIJ"],
+  ["Tư thế siêu âm theo Hartung?",["Nằm sấp, bàn chân xoay trong và lật vào","Nằm ngửa","Ngồi","Đứng"],0,"Gối dưới khung chậu.","SIJ"],
+  ["Đầu dò siêu âm trong Hartung?",["Thẳng 2,5–8,0 MHz, trường nhìn 44 mm","Cong 1 MHz","Nội soi","Tim"],0,"Khe SIJ là khe giảm âm giữa hai đường tăng âm.","SIJ"],
+  ["Saunders nhắm vào?",["Dây chằng gian cốt sau ở mức S1–S2","Mấu chuyển lớn","Đĩa đệm L4","Cơ mông"],0,"Đích tiêm điều trị.","SIJ"],
+  ["Nhược điểm của siêu âm?",["Ít vào đúng trong khớp, thời gian dài hơn","Phóng xạ","Chống chỉ định thai","Không thấy xương"],0,"Giảm theo kinh nghiệm.","SIJ"],
+  ["Ưu điểm của siêu âm?",["Thấy thuốc lan ngoài khớp để chỉnh kim","Chính xác nhất","Nhanh nhất","Không cần kim"],0,"Tiêm quanh khớp vẫn hiệu quả (Hartung).","SIJ"],
+  ["Nguy cơ chính của chế phẩm tái tạo tự thân?",["Phá vỡ vô trùng hoặc tiêm nhầm cấu trúc","Tương tác thuốc","Quá liều","Dị ứng với corticoid"],0,"Phản ứng truyền máu, dị ứng/miễn dịch.","SIJ"]
+ ]}
+);

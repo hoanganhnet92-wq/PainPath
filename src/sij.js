@@ -197,6 +197,7 @@ const SIJ = [
   ["Vì sao cuối chương khuyên phong bế chẩn đoán?",["Nghiệm pháp khám thiếu độ nhạy và đặc hiệu","Phong bế luôn chính xác tuyệt đối","Hình ảnh luôn sai","Để điều trị ngay"],0,"Chẩn đoán đúng SIJ là bắt buộc để chọn điều trị; nghiệm pháp khám không đủ tin cậy.","SIJ"]
  ]}
 ];
+/*SIJMORE*/
 
 /* ----- Giao diện mục Đau khớp cùng chậu ----- */
 (function(){
