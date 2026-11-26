@@ -198,6 +198,7 @@ const SIJ = [
  ]}
 ];
 /*SIJMORE*/
+SIJ.sort((a,b)=>a.id-b.id);
 
 /* ----- Giao diện mục Đau khớp cùng chậu ----- */
 (function(){
