@@ -1,6 +1,6 @@
 /* Chương 7 và 8 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:7, t:"Chương 7 · Phong bế nhánh ngoài (Lateral branch blocks)", yt:"", min:12,
+{ id:7, t:"Chương 7 · Phong bế nhánh ngoài (Lateral branch blocks)", yt:"https://youtu.be/VbZJVk52j7Q", min:12,
  pts:[
   "LBB là xét nghiệm CHẨN ĐOÁN và TIÊN LƯỢNG cho đốt sóng cao tần (RFA), không giảm đau lâu dài. Đồng thuận: SIJ chi phối từ nhánh sau L4–L5 và nhánh ngoài của nhánh sau S1–S3; chi phối phía trước còn tranh luận.",
   "Giải phẫu: tủy sống tận cùng L1–L2 → chùm đuôi ngựa; dây cùng thoát qua lỗ cùng trước/sau → nhánh trước (đám rối cùng) và nhánh sau. Nhánh trước khó nhắm (qua các tạng, nguy cơ tổn thương thần kinh); sợi L4–S2 có thể chi phối mặt trước (xác chết).",
@@ -62,7 +62,7 @@ SIJ.push(
   ["Một lý do bệnh nhân không đáp ứng LBB?",["Chi phối phía trước còn tranh luận, không được phong bế","Do thuốc quá rẻ","Bệnh nhân quá trẻ","Kim quá mới"],0,"Hoặc chi phối phía sau biến thiên, không chắc đã phủ mọi nhánh.","SIJ"]
  ]},
 
-{ id:8, t:"Chương 8 · Đốt sóng cao tần khớp cùng–chậu (RFA)", yt:"", min:20,
+{ id:8, t:"Chương 8 · Đốt sóng cao tần khớp cùng–chậu (RFA)", yt:"https://youtu.be/gRxc_rzwxRE", min:20,
  pts:[
   "RFA: làm mất chi phối (denervation) các thần kinh dẫn đau SIJ bằng dòng sóng cao tần qua điện cực → tổn thương nhiệt; chết thần kinh do thoái hóa Wallerian; cần vài tuần mới đỡ; thần kinh tái sinh nên đau tái phát (6–12 tháng) → lặp lại.",
   "Bằng chứng: Ferrante 2001 (hồi cứu) 12/33 (36,4%) giảm ≥50%, trung bình 12 ± 1,2 tháng; Cohen 2003 8/9 (88,9%) ở 9 tháng (chọn nhờ LBB dương); RCT giả dược có lợi, rõ nhất tháng 3; phân tích gộp 2010: 60,1% >50% ở 3 tháng, 49,9% ở 6 tháng. Lợi ích: giảm đau kéo dài, giảm opioid.",

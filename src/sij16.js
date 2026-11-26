@@ -1,6 +1,6 @@
 /* Chương 16 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:16, t:"Chương 16 · Chọn bệnh nhân cho phẫu thuật hàn khớp cùng–chậu", yt:"", min:25,
+{ id:16, t:"Chương 16 · Chọn bệnh nhân cho phẫu thuật hàn khớp cùng–chậu", yt:"https://youtu.be/rt2xcNmbJB4", min:25,
  pts:[
   "Lịch sử: Smith-Petersen và Rogers mô tả hàn SIJ năm 1921 (đường mở sau–bên xuyên chậu); hàn mở nay chỉ dành cho gãy vòng chậu chấn thương, nhiễm trùng SIJ, u xương cùng, hoặc hàn đoạn dài cho biến dạng cột sống (hồi phục lâu, biến chứng cao). 2008: FDA duyệt thiết bị xâm lấn tối thiểu đầu tiên; 2012: >80% ca hàn là xâm lấn tối thiểu.",
   "Bằng chứng: hàn xâm lấn tối thiểu giảm đau, chức năng, chất lượng sống tốt hơn điều trị không phẫu thuật ở bệnh nhân chọn lọc. Graham-Smith (đoàn hệ so sánh đa trung tâm đầu tiên): thời gian mổ ngắn hơn ~1,5 giờ; nằm viện ngắn hơn gần 4 ngày; mất máu ít hơn; VAS giảm −6,2 vs −2,7 (hơn 3 điểm).",

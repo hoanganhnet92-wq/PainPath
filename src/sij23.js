@@ -1,6 +1,6 @@
 /* Chương 23 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:23, t:"Chương 23 · Nếu hàn khớp thất bại thì sao? (What if fusion fails?)", yt:"", min:20,
+{ id:23, t:"Chương 23 · Nếu hàn khớp thất bại thì sao? (What if fusion fails?)", yt:"https://youtu.be/-Ydgdd8v7s8", min:20,
  pts:[
   "Bối cảnh: thoái hóa đĩa thắt lưng, bệnh khớp mấu thắt lưng và bệnh SIJ là ba nguyên nhân hàng đầu của đau thắt lưng mạn; SIJ chiếm 15–30%, và ~40% ở bệnh nhân đã hàn cột sống thắt lưng (chủ yếu do bệnh đoạn kế cận). Điều trị: vật lý trị liệu, NSAID, bổ trợ, tiêm steroid, RFA, cố định/hàn mở hoặc MIS đường bên và sau.",
   "Cố định (fixation) và hàn (fusion): cố định = vít hoặc nẹp xuyên đường khớp ở phía sau; SIJ phức tạp (hình C hoặc L) cần phân tích cơ sinh học sâu hơn để dự đoán thất bại hoặc mất vững sau cố định. Hàn = phá khớp + cấy allograft hoặc thiết bị có lớp phủ cho xương mọc vào; cả hai làm ổn định, nhưng hàn tạo cầu xương xuyên đường khớp (transfixation) → bất động lâu dài.",

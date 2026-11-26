@@ -1,6 +1,6 @@
 /* Chương 9 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:9, t:"Chương 9 · Y học tái tạo cho bệnh khớp cùng–chậu", yt:"", min:32,
+{ id:9, t:"Chương 9 · Y học tái tạo cho bệnh khớp cùng–chậu", yt:"https://youtu.be/s6bKW6FdSKI", min:32,
  pts:[
   "Năm nhóm liệu pháp tái tạo/sinh học: prolotherapy, tế bào gốc trung mô (MSC), PRP, máu toàn phần tự thân, axit hyaluronic (HA). Bằng chứng riêng cho SIJ rất hạn chế: ASIPP xếp PRP cho SIJ ở mức IV (trên thang I–V); thường suy từ dữ liệu khớp ngoại biên.",
   "Prolotherapy: tiêm chất kích ứng/ưu trương để thúc đẩy lành, làm chắc dây chằng; mô tả hiện đại 1937; NIH xếp là y học bổ sung–thay thế; ban đầu cho lỏng lẻo dây chằng. 3 nhóm chất: thẩm thấu (dextrose ưu trương, kẽm sulfat, glycerin), kích ứng (phenol, guaiacol, pumic acid), hóa hướng động (natri morrhuate).",

@@ -1,6 +1,6 @@
 /* Chương 17 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:17, t:"Chương 17 · Dụng cụ phẫu thuật hàn khớp cùng–chậu", yt:"", min:22,
+{ id:17, t:"Chương 17 · Dụng cụ phẫu thuật hàn khớp cùng–chậu", yt:"https://youtu.be/VTaz1CkJynM", min:22,
  pts:[
   "Hàn SIJ mở nguyên thủy 1921; từ 2008 có 2 đường xâm lấn tối thiểu (sau và bên); hiện có >20 hệ thống hàn SIJ. Thủ thuật dẫn đường bằng huỳnh quang (hình tia X liên tục) hoặc CT (nhiều ảnh tia X từ các góc ghép lại, chi tiết hơn), không nhìn trực tiếp giải phẫu.",
   "Tư thế: bàn xuyên tia, giảm tối đa ưỡn thắt lưng; khung Wilson (gây gù tăng gập L4–5 thêm 47% và L5–S1 thêm 21%; gây gù trước rạch da giúp bộc lộ tốt hơn); không có thì kê gối gel hoặc khăn cuộn dưới bụng.",

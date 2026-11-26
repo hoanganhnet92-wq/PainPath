@@ -1,6 +1,6 @@
 /* Chương 19 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:19, t:"Chương 19 · Hàn khớp cùng–chậu từ bên (Lateral fusion)", yt:"", min:45,
+{ id:19, t:"Chương 19 · Hàn khớp cùng–chậu từ bên (Lateral fusion)", yt:"https://youtu.be/Io3C1Z8Q5Bg", min:45,
  pts:[
   "Bối cảnh: thị trường hàn SIJ xâm lấn tối thiểu (MIS) dự kiến 450 triệu USD cuối 2025; 2017 Mỹ + châu Âu chiếm 85%; trước 2008 hàn cố định còn hiếm. Smith-Petersen 1921 (đường mở sau–bên xuyên chậu; mất máu, bóc tách mô, hồi phục dài, đau). 2008: Wise và Dall (qua da từ sau), Al-Khayer (qua da từ bên); FDA cấp 510(k) cho iFuse (SI-BONE). 2012: 85% ca hàn là MIS. Nay >25 hệ thống được FDA duyệt, ≥14 cho đường bên; SIJ gây đau lưng kháng trị ở đến 30%.",
   "Đường hàn: MIS bên, MIS sau (một số hệ thống phối hợp); đường mở sau và Smith-Petersen vẫn dùng khi không làm được MIS; đang phát triển đường chếch bên và mini-mở + MIS.",

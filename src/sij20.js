@@ -1,6 +1,6 @@
 /* Chương 20 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:20, t:"Chương 20 · Hàn khớp cùng–chậu từ sau (Posterior fusion)", yt:"", min:40,
+{ id:20, t:"Chương 20 · Hàn khớp cùng–chậu từ sau (Posterior fusion)", yt:"https://youtu.be/YayDmxxI978", min:40,
  pts:[
   "Bối cảnh: rối loạn chức năng SIJ ước tính đến 62% ở một số nhóm bệnh nhân đau thắt lưng; hàn SIJ MIS đã thành lựa chọn chủ đạo; >25 hệ thống FDA duyệt, số hệ thống thiết kế cho đường sau ngày càng tăng. Mổ mở mô tả từ những năm 1920: nhiều biến chứng, hồi phục dài, kết quả kém → ít được áp dụng.",
   "Mốc lịch sử: 2008 Wise và Dall (đường sau qua da) và Al-Khayer (đường bên qua da); đến 2012, 85% ca hàn là MIS; 2012 loạt ca hồi cứu dùng hai chốt allograft sợi qua đường sau MIS: gần 90% ổn định khớp trên hình ảnh và giảm đau có ý nghĩa → kỹ thuật ghép allograft đường sau khả thi.",

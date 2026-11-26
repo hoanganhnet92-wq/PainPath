@@ -1,6 +1,6 @@
 /* Chương 10 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:10, t:"Chương 10 · Kỹ thuật hình ảnh dẫn đường để tiêm khớp cùng–chậu", yt:"", min:16,
+{ id:10, t:"Chương 10 · Kỹ thuật hình ảnh dẫn đường để tiêm khớp cùng–chậu", yt:"https://youtu.be/rGZdbQJHWcI", min:16,
  pts:[
   "Tiêm SIJ để chẩn đoán hoặc điều trị (kể cả y học tái tạo) dưới ba phương tiện: CT, huỳnh quang, siêu âm.",
   "Chống chỉ định tuyệt đối: u tại chỗ, nhiễm trùng. Tương đối: rối loạn đông máu, thai kỳ (tùy loại hình ảnh), nhiễm trùng toàn thân, khớp nhiễm khuẩn, viêm xương tủy.",

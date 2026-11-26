@@ -1,6 +1,6 @@
 /* Chương 15 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:15, t:"Chương 15 · Biến chứng của PNS cho đau khớp cùng–chậu", yt:"", min:18,
+{ id:15, t:"Chương 15 · Biến chứng của PNS cho đau khớp cùng–chậu", yt:"https://youtu.be/vWN3AGdwC2Y", min:18,
  pts:[
   "3 nhóm biến chứng PNS: (1) liên quan phần cứng; (2) sinh học; (3) lập trình/điều trị.",
   "Lịch sử: PNS xuất phát từ Campbell và Long (Johns Hopkins, 1976); điện cực vòng bề mặt lớn → lập bản đồ chức năng thần kinh → điện cực dạng bản (paddle) → điện cực trụ qua da kiểu SCS → kim sóng cao tần (gây dị cảm ở bệnh nhân tỉnh để lập bản đồ đau); thiết bị nhỏ hơn, dễ cấy hơn, hiệu quả chi phí hơn.",

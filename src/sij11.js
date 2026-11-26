@@ -1,6 +1,6 @@
 /* Chương 11 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:11, t:"Chương 11 · Chọn bệnh nhân và dụng cụ cho kích thích thần kinh ngoại biên (PNS)", yt:"", min:18,
+{ id:11, t:"Chương 11 · Chọn bệnh nhân và dụng cụ cho kích thích thần kinh ngoại biên (PNS)", yt:"https://youtu.be/06eA7HSlgaM", min:18,
  pts:[
   "PNS khác kích thích vùng ở chỗ có một dây thần kinh ngoại biên đích; báo cáo ca trong thập kỷ qua cho thấy hữu ích cho đau SIJ. Phải hiểu các dây thần kinh chi phối khớp để hiểu vị trí/kỹ thuật phong bế chẩn đoán.",
   "Thần kinh mông giữa (MCN): thuần cảm giác, 4–6 nhánh; đau vùng thắt lưng thấp và mông; xuất phát nhánh sau S1–S4; đi dưới và kẹp dây chằng cùng–chậu sau dài (LPSL) giữa PSIS và gai chậu sau dưới, vòng qua mào chậu xuống mông. Kẹt MCN có thể bị điều trị như đau SIJ.",

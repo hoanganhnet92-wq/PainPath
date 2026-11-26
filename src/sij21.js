@@ -1,6 +1,6 @@
 /* Chương 21 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:21, t:"Chương 21 · Chăm sóc sau mổ hàn khớp cùng–chậu (Postoperative care)", yt:"", min:25,
+{ id:21, t:"Chương 21 · Chăm sóc sau mổ hàn khớp cùng–chậu (Postoperative care)", yt:"https://youtu.be/RRFo-zwvef0", min:25,
  pts:[
   "Bối cảnh: hàn mở = đường trước hoặc sau + lấy xương ghép + nẹp thường 3 vít; MIS bên = thường 3 thanh implant tam giác phun plasma (iFuse); MIS sau = cage/vít hoặc mảnh allograft nhỏ qua da (LinQ). Lợi ích nổi bật của MIS: hồi phục ngắn hơn rất nhiều; mổ ngắn, ít mất máu, nằm viện ngắn → ít biến chứng.",
   "Tập đi sau hàn mở: vận động sớm để phòng DVT/PE; toe-touch 6 tuần → tập hồ bơi 4 tuần (tăng dần chịu lực) → vật lý trị liệu cạn 8 tuần (tăng cường cơ lõi).",

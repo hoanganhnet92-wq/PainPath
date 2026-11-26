@@ -1,6 +1,6 @@
 /* Chương 6 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:6, t:"Chương 6 · Tiêm trong khớp cùng–chậu (huỳnh quang và siêu âm)", yt:"", min:14,
+{ id:6, t:"Chương 6 · Tiêm trong khớp cùng–chậu (huỳnh quang và siêu âm)", yt:"https://youtu.be/2JnLEQraoa8", min:14,
  pts:[
   "Đau SIJ ≈ 15–30% bệnh nhân đau thắt lưng mạn; đến 40% đau thắt lưng mới sau hàn cột sống. Có thể giống thoát vị đĩa đệm hoặc bệnh khớp háng → cần bệnh sử và khám kỹ. SIJ là khớp hoạt dịch, chi phối chủ yếu từ nhánh sau các dây thần kinh cùng.",
   "Triệu chứng: đau thắt lưng và mông, có thể lan háng và đùi trên; nặng hơn khi đi bộ, từ ngồi sang đứng, khi ngủ, ngồi đè lên bên đau. Chưa có tiêu chuẩn chẩn đoán đồng thuận; nghiệm pháp: dấu chỉ ngón Fortin, FABER; hình ảnh X-quang, MRI, CT.",

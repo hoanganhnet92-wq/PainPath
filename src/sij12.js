@@ -1,7 +1,7 @@
 /* Chương 12 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có.
    Các mốc ngừng thuốc theo Bảng 12.2 của sách; bắt buộc đối chiếu hướng dẫn gốc và bác sĩ kê đơn. */
 SIJ.push(
-{ id:12, t:"Chương 12 · Cân nhắc trước mổ cho PNS khớp cùng–chậu", yt:"", min:15,
+{ id:12, t:"Chương 12 · Cân nhắc trước mổ cho PNS khớp cùng–chậu", yt:"https://youtu.be/Iiy26B3AMzA", min:15,
  pts:[
   "Chuẩn bị trước mổ: mô tả thủ thuật và đặt kỳ vọng ngay ở phòng khám; 4 nội dung: loại thủ thuật (thử/cấy), tối ưu bệnh nền, thuốc chống đông, phòng nhiễm trùng.",
   "Đánh giá trước mổ: khám ở lần đầu và NGAY trước thủ thuật; bệnh nhân đã thất bại điều trị bảo tồn; xem bệnh nền (đái tháo đường, tim, chống đông); yếu tố làm khó hình ảnh (phẫu thuật cũ, không nằm được tư thế); đánh giá lại xem bệnh nhân làm đúng dặn dò (ngừng chống đông).",

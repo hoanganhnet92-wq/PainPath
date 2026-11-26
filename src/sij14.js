@@ -1,6 +1,6 @@
 /* Chương 14 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:14, t:"Chương 14 · Thang đo kết quả và kết quả của PNS cho khớp cùng–chậu", yt:"", min:30,
+{ id:14, t:"Chương 14 · Thang đo kết quả và kết quả của PNS cho khớp cùng–chậu", yt:"https://youtu.be/If97k_ZNTjk", min:30,
  pts:[
   "Đo đau khó vì đau chủ quan, đa yếu tố. Thang tốt phải có giá trị, lặp lại được, áp dụng rộng; thường đánh đổi độ chính xác lấy sự tiện lợi.",
   "IMMPACT (Dworkin 2003) – 6 lĩnh vực: đau; chức năng thể chất; chức năng cảm xúc; đánh giá cải thiện toàn cục và hài lòng; triệu chứng và biến cố bất lợi; phân bổ người tham gia.",

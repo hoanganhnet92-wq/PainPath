@@ -1,6 +1,6 @@
 /* Chương 4 và 5 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:4, t:"Chương 4 · Tàn tật liên quan bệnh khớp cùng–chậu", yt:"", min:25,
+{ id:4, t:"Chương 4 · Tàn tật liên quan bệnh khớp cùng–chậu", yt:"https://youtu.be/zDmMWOn2qJw", min:25,
  pts:[
   "Tàn tật = mất chức năng do tổn thương, giới hạn sinh hoạt hằng ngày (ADL) ở gia đình, công việc, cộng đồng. Đau thắt lưng (LBP): >1,7 tỷ người, top 3 nguyên nhân sống chung với tàn tật; 84% người lớn sẽ đau thắt lưng, đến 12% trở nên tàn tật.",
   "Đau SIJ là nguồn đau chính ở 14–22% đau thắt lưng trục; 32–42% ở bệnh nhân từng hàn cột sống thắt lưng; 49% ở thai phụ. Hiện mắc 15–30%, hằng năm 20–60%, cả đời 60–70%. Dịch tễ thật còn chưa rõ.",
@@ -65,7 +65,7 @@ SIJ.push(
   ["MMI trong xếp loại tàn tật là?",["Điểm cải thiện y khoa tối đa","Mức đau tối đa","Chỉ số khối cơ","Mức đáp ứng thuốc"],0,"Dùng để xếp loại mất chức năng và hạn chế khi quay lại làm việc.","SIJ"]
  ]},
 
-{ id:5, t:"Chương 5 · Gây mê, gây tê cho thủ thuật khớp cùng–chậu", yt:"", min:40,
+{ id:5, t:"Chương 5 · Gây mê, gây tê cho thủ thuật khớp cùng–chậu", yt:"https://youtu.be/70i0H_YaViU", min:40,
  pts:[
   "Mức gây mê theo thủ thuật (Bảng 5.4): tiêm chẩn đoán – KHÔNG gây tê (lidocaine 1%); tiêm điều trị, phong bế, đốt RFA – gây tê tại chỗ 3–5 mL lidocaine 1% ở da (thuốc tiêm bupivacaine/ropivacaine ± corticoid cho tiêm khớp); Simplicity – MAC; hàn xâm lấn tối thiểu – MAC / tê trục / mê toàn thân; hàn mổ mở – mê toàn thân.",
   "Lịch sử: cocaine (thế kỷ 19) chẹn kênh natri → 1905 procaine (dị ứng nặng) → 1946 lidocaine. Ether 30/3/1842 (Crawford Long); chloroform Simpson 1853. Hàn SIJ xâm lấn tối thiểu từ 2008. Phong bế nhắm L5 nhánh sau và nhánh ngoài S1–S3; phía sau do đám rối L5–S4 chi phối.",

@@ -1,6 +1,6 @@
 /* Chương 22 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:22, t:"Chương 22 · Biến chứng của hàn SIJ và cách xử trí (Complications)", yt:"", min:15,
+{ id:22, t:"Chương 22 · Biến chứng của hàn SIJ và cách xử trí (Complications)", yt:"https://youtu.be/tT_bLK3SSzg", min:15,
  pts:[
   "Bối cảnh: đau thắt lưng mạn do SIJ ~15–30%; tỷ lệ thật khó xác định vì kiểu lan đau chồng lấp (thoát vị đĩa trong, thoái hóa khớp mấu, SIJ, sau hàn cột sống thắt lưng). Mổ mở: nhiễm trùng vết mổ, rạch dài, nằm viện lâu, lấy xương ghép, tổn thương thần kinh. Sách ghi MIS báo cáo lần đầu 2004 (các chương trước ghi 2008 – cần đối chiếu).",
   "Hạn chế y văn: đa số nghiên cứu MIS tập trung hiệu quả và hài lòng; rất ít nghiên cứu về an toàn, mẫu nhỏ, không đủ kết luận có ý nghĩa thống kê.",

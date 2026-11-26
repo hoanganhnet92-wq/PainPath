@@ -1,6 +1,6 @@
 /* Chương 13 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có. */
 SIJ.push(
-{ id:13, t:"Chương 13 · Thử và cấy kích thích thần kinh ngoại biên (PNS) cho khớp cùng–chậu", yt:"", min:30,
+{ id:13, t:"Chương 13 · Thử và cấy kích thích thần kinh ngoại biên (PNS) cho khớp cùng–chậu", yt:"https://youtu.be/P2a8OnYcdE8", min:30,
  pts:[
   "PNS = kích thích điện trực tiếp các dây thần kinh có tên, nằm ngoài trục thần kinh, ức chế trực tiếp sợi hướng tâm sơ cấp. Từ mổ mở bóc tách → thủ thuật qua da với hướng dẫn hình ảnh; nay có thiết bị chuyên cho PNS (trước đây dùng máy kích thích tủy sống cấy ngoại biên ngoài chỉ định).",
   "Đích của SIJ: nhánh sau S1, S2, S3; ngoài ra nhánh trước L4, L5, thần kinh mông trên, nhánh sau L5, thần kinh mông giữa (nhánh cảm giác của nhánh sau S1–S3, nằm sau PSIS, chi phối mông sau–trong). Thường dùng huỳnh quang; siêu âm hỗ trợ.",

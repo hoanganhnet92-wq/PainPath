@@ -1,7 +1,7 @@
 /* Chương 18 của mục Đau khớp cùng chậu (nối vào mảng SIJ). Điền link YouTube vào yt khi có.
    Các mốc ngừng/dùng lại thuốc theo Bảng 18.1–18.3 của sách (đã đối chiếu ảnh trang); bắt buộc đối chiếu hướng dẫn hiện hành. */
 SIJ.push(
-{ id:18, t:"Chương 18 · Cân nhắc trước mổ khi hàn khớp cùng–chậu", yt:"", min:25,
+{ id:18, t:"Chương 18 · Cân nhắc trước mổ khi hàn khớp cùng–chậu", yt:"https://youtu.be/a7n50hgIIAY", min:25,
  pts:[
   "13–30% đau thắt lưng do SIJ. Ba trụ cột trước mổ: bệnh sử và yếu tố nguy cơ; kế hoạch thủ thuật; kiểm soát nguy cơ nhiễm trùng và chảy máu (thuốc chống đông).",
   "Bệnh sử/khám: xác nhận đau từ SIJ, tìm bệnh nền; bệnh nhân đã hoàn thành điều trị không phẫu thuật (vật lý trị liệu theo APTA, tiêm steroid trong khớp, thuốc giảm đau uống, RFA nhánh cùng) mà không cải thiện; hàn SIJ không giúp nếu đau do bệnh viêm hoặc lan từ nguyên nhân thắt lưng khác; khám cơ xương–thần kinh thắt lưng và hai chi dưới + tầm vận động; bệnh nền (đái tháo đường, tim mạch, suy thận, phù mạn, MRSA); rà soát thuốc, tuân thủ thuốc chống đông; yếu tố ảnh hưởng tư thế/quan sát (sẹo cũ); đánh giá lại ngay trước thủ thuật.",
